@@ -76,6 +76,9 @@ def test_diag(CSM):
     assert not CSM.liesHorizontal(0,cs)
     assert not CSM.liesVertical(0,cs)
 
+    cs = set([0,6,12,18])
+    assert CSM.isRightDiagonal(cs)
+
 def test_merge_sets(CSM):
     cs = []
     set1 = set([0,1])
@@ -94,3 +97,9 @@ def test_merge_sets(CSM):
     fullset.add(6)
     assert fullset not in csprime
 
+def test_left_diag(CSM):
+    a = set([3,7])
+    b = set([11,7])
+    assert CSM.isLeftDiagonal(a)
+    assert CSM.isLeftDiagonal(b)
+    assert CSM.shouldMerge(a,b)

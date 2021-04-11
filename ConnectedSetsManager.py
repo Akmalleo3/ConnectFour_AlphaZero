@@ -44,49 +44,79 @@ class ConnectedSetsManager():
             and (oneAbove + 1) in set: return True
         return False
 
+    def liesRightDiag(self,tile,set):
+        oneBelow = tile-self.width
+        oneAbove = tile+self.width
+
+        if self.doesntWrapLeft(oneBelow-1) \
+            and (oneBelow - 1) in set: return True
+        if self.doesntWrapRight(oneAbove + 1) \
+            and (oneAbove + 1) in set: return True
+        return False
+
+    def liesLeftDiag(self,tile,set):
+        oneBelow = tile-self.width
+        oneAbove = tile+self.width
+
+        if self.doesntWrapRight(oneBelow+1) \
+            and (oneBelow + 1) in set: return True
+        if self.doesntWrapLeft(oneAbove-1) \
+            and (oneAbove -1) in set: return True
+
+        return False
+
     def isHorizontal(self, set):
         item = set.pop()
         set.add(item)
-        return (item+1 in set) or (item-1 in set)
+        return ((item+1) in set) or ((item-1) in set)
             
     def isVertical(self, set):
         item = set.pop()
         set.add(item)
-        return (item+self.width in set) or (item-self.width in set)
+        return ((item+self.width) in set) or ((item-self.width) in set)
 
     def isDiagonal(self,set):
         item = set.pop()
         set.add(item)
-        return (item + self.width-1  in set) or (item+self.width+1 in set)\
-        or (item - self.width -1 in set) or (item -self.width + 1 in set)
+        return ((item + self.width-1)  in set) or ((item+self.width+1) in set)\
+        or ((item - self.width -1) in set) or ((item -self.width + 1) in set)
+
+    def isRightDiagonal(self,set):
+        item = set.pop()
+        set.add(item)
+        return  ((item+self.width+1) in set) or ((item - self.width -1) in set) 
+
+    def isLeftDiagonal(self,set):
+        item = set.pop()
+        set.add(item)
+        return ((item + self.width-1)  in set) or ((item -self.width + 1) in set)
 
     def connected(self,tile,set):
         if len(set) == 1:
             return self.liesVertical(tile,set)\
-            or self.liesHorizontal(tile,set) or self.liesDiag(tile,set)
+            or self.liesHorizontal(tile,set) or self.liesRightDiag(tile,set) \
+                or self.liesLeftDiag(tile,set)
         elif self.isHorizontal(set):
             return self.liesHorizontal(tile,set)
         elif self.isVertical(set):
             return self.liesVertical(tile,set)
+        elif self.isRightDiagonal(set):
+            return self.liesRightDiag(tile,set)
         else:
-            return self.liesDiag(tile,set)
+            return self.liesLeftDiag(tile,set)
 
     def shouldMerge(self,set1,set2):
         if self.isHorizontal(set1) and self.isHorizontal(set2):
             return True
         if self.isVertical(set1) and self.isVertical(set2):
             return True
-        if self.isDiagonal(set1) and self.isDiagonal(set2):
-            item = set1.pop()
-            for t in set2:
-                if abs(item-t)%self.width != 0:
-                    return False
+        if self.isRightDiagonal(set1) and self.isRightDiagonal(set2):
+            return True
+        if self.isLeftDiagonal(set1) and self.isLeftDiagonal(set2):
             return True
         return False
 
-
-    def insertTile(self,tileIndex,sets, recDepth=0):
-        print(f"insertTile: {sets}")
+    def insertTile(self,tileIndex,sets):
         if sets == []:
             newSet = set([tileIndex])
             sets.append(newSet)
@@ -95,52 +125,25 @@ class ConnectedSetsManager():
         newConnectedSets = []
 
         maybeJoin = set()
-        toKeep = set()
-        loner = True
         for i,s in enumerate(sets):
             if self.connected(tileIndex, s):
-                s.add(tileIndex)
-                loner=False
+                newConnectedSets.append(s.union([tileIndex]))
                 maybeJoin.add(i)
-            toKeep.add(i)
-
-        if loner and (recDepth == 0):
-            newConnectedSets.append(set([tileIndex]))
-            new = [set([tileIndex])]
-            # if there are more than two tiles total:
-            if len(sets) > 1 or len(sets[0]) >1 :
-                for i,s in enumerate(sets): 
-                    for t in s:
-                        new = self.insertTile(t,new,recDepth+1)
-                for s in new:
-                    newConnectedSets.append(s)
         
-
-        # Which sets can be merged?
-        defJoin = set()
         for i in maybeJoin:
             for j in maybeJoin:
                 if i != j:
-                    if self.shouldMerge(sets[i],sets[j]):
-                        defJoin.add(i)
-                        defJoin.add(j)
-                        if i in toKeep:
-                            toKeep.remove(i)
-                        if j in toKeep:
-                            toKeep.remove(j)
-                        
-        mergedSet=set()
-        for i in defJoin:
-            mergedSet.update(sets[i])
+                    if self.shouldMerge(sets[i].union([tileIndex]),\
+                                        sets[j].union([tileIndex])):
+                        merged = sets[i].union(sets[j])
+                        merged.add(tileIndex)
+                        newConnectedSets.append(merged)
 
-        if len(mergedSet):
-            newConnectedSets.append(mergedSet)
-
-        # Return list of the new sets
         for i in range(len(sets)):
-            if i in toKeep:
-                newConnectedSets.append(sets[i])
-        
+            newConnectedSets.append(sets[i])
+
+        newConnectedSets.append(set([tileIndex]))
+
         return newConnectedSets
 
                 
