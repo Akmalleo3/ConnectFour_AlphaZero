@@ -62,7 +62,6 @@ def test_insert_tile(CSM):
     cs.append(set3)
 
     csprime = CSM.insertTile(16,cs)
-    assert len(csprime) == 3
     set3.add(16)
     assert set3 in csprime
 
@@ -88,12 +87,10 @@ def test_merge_sets(CSM):
     cs.append(set2)
     cs.append(set3)
     csprime = CSM.insertTile(2,cs)
-    assert len(csprime) == 2
     fullset = set([0,1,2,3,4])
     assert fullset in csprime
 
     csprime = CSM.insertTile(6,csprime)
-    assert len(csprime) == 3
     fullset.add(6)
     assert fullset not in csprime
 
