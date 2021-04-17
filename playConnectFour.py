@@ -21,7 +21,7 @@ def watchGame(gameDir):
 #clear output directory if it exists
 shutil.rmtree("testGame1", ignore_errors=True)
 
-cf = ConnectFour(5,5,"testGame1")
+cf = ConnectFour(5,5,True,"testGame1")
 
 rng = random.default_rng()
 player = 1

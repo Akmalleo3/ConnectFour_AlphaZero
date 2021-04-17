@@ -6,9 +6,10 @@ import shutil
 from ConnectedSetsManager import ConnectedSetsManager
 
 class ConnectFour():
-    def __init__(self, width, height, gameDir=None, **kwargs):
+    def __init__(self, width, height, doSave, gameDir=None, **kwargs):
         self.width = width
         self.height = height
+        self.doSave = doSave
         ntiles = width*height
         self.board = {}
         # map col number to height of column 
@@ -24,19 +25,34 @@ class ConnectFour():
             self.colPieceCount[c] = 0
 
         # Set up the directory to save each turn
-        if not gameDir:
+        if doSave and not gameDir:
             dt = datetime.now().time()
             self.saveDir = f"./game_{dt}"
-        else:
+            os.mkdir(self.saveDir)
+        elif doSave:
             self.saveDir = gameDir
-        os.mkdir(self.saveDir)
+            os.mkdir(self.saveDir)
 
         #track the turn count
         self.turnNum = 0
 
+    def state(self):
+        return self.board
+
+    def player(self):
+        return self.turnNum % 2
+
+    def clone(self):
+        newGame = ConnectFour(self.width, self.height, False)
+        newGame.p1_connectedSets = self.p1_connectedSets
+        newGame.p2_connectedSets = self.p2_connectedSets
+        newGame.board = self.board
+        return newGame
+
     # Drop a piece into specified column
     # for the specified player (1 or 2)
-    def move(self,player, column):
+    def move(self,column):
+        player = self.player()
         # assert move is legal
         assert(column < self.width)
         assert(player ==1 or player == 2)
@@ -56,17 +72,19 @@ class ConnectFour():
             self.p1_connectedSets = self.connectedSetManager.insertTile(tileIndex, self.p1_connectedSets)
         else:
             self.p2_connectedSets = self.connectedSetManager.insertTile(tileIndex, self.p2_connectedSets)
-            
-        self.draw()
+
+        if self.doSave:
+            self.draw()
+
         self.turnNum += 1
         return True 
 
     #returns 0 if no winner
     #else returns player who won
     def gameWinner(self):
-        if self.connectedSetManager.maxConnect(self.p1_connectedSets) == 4:
+        if self.connectedSetManager.maxConnect(self.p1_connectedSets) >= 4:
             return 1
-        if self.connectedSetManager.maxConnect(self.p2_connectedSets) == 4:
+        if self.connectedSetManager.maxConnect(self.p2_connectedSets) >= 4:
             return 2
         return 0
     
