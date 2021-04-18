@@ -39,14 +39,15 @@ class ConnectFour():
     def state(self):
         return self.board
 
-    def player(self):
-        return self.turnNum % 2
+    def player(self): #player 1 or 2
+        return self.turnNum % 2 +  1
 
     def clone(self):
         newGame = ConnectFour(self.width, self.height, False)
         newGame.p1_connectedSets = self.p1_connectedSets
         newGame.p2_connectedSets = self.p2_connectedSets
         newGame.board = self.board
+        newGame.colPieceCount = self.colPieceCount  
         return newGame
 
     # Drop a piece into specified column
@@ -64,6 +65,7 @@ class ConnectFour():
         assert(nextRow < self.height)
         
         tileIndex = nextRow*self.width + column 
+        
         assert(self.board[tileIndex] == 0)
 
         self.board[tileIndex] = player

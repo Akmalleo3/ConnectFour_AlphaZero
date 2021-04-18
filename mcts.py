@@ -1,5 +1,10 @@
-
+import math
+import numpy
+import os
+import random
+import shutil
 import torch
+import time
 from torch.nn import functional 
 
 from AlphaZeroConfig import AlphaZeroConfig as cfg
@@ -12,9 +17,10 @@ config = cfg()
 # will return (p,v)
 # policy vector and expected value of the state
 def network():
-    n_legal_moves = 5
+    n_legal_moves = 4
     x = torch.rand(1, n_legal_moves)
     p = functional.softmax(x,dim=1)
+    p = p.squeeze()
     v = torch.rand(1)
     return p,v
 
@@ -41,14 +47,27 @@ class GameNode():
         u = u/(1 + self.visit_count)
         return u
 
+    def print(self):
+        print(f"(N = {self.visit_count} W = {self.total_action_value} Q = {self.Q()} P = {self.prior_prob} )")
+        
+
     def isLeaf(self):
-        return len(self.children) > 0
+        return len(self.children) == 0
 
 class MCTS():
     #select max_a (Q+U)
-    def select_action(self, actions, node):
-        q_plus_u = [child.Q() + child.U() for child in node.children]
-        return argmax(q_plus_u)
+    def select_action(self, node):
+        q_plus_u = numpy.array([(child.Q() + child.U()) for (action,child) in node.children.items()])
+        return numpy.argmax(q_plus_u)
+
+    def print_tree(self,root):
+        node = root
+        node.print()
+        if not node.isLeaf():
+            for (action,child) in node.children.items():
+                self.print_tree(child)
+            
+
 
     # incorporate v from network
     # into value estimations for each
@@ -56,14 +75,16 @@ class MCTS():
     def update_tree(self, node,val, player):
         while node.parent != {}:
             if node.player == player:
-                node.total_action_val += val
+                node.total_action_value += val
             else:
                 node.total_action_value += (1-val)
             node.visit_count += 1
             node = node.parent
 
     def run_sim(self, game):
+       
         root = GameNode({},1)
+        root.player = game.player()
         # evaluate network for this state
         s = game.state()
         policy,val = network()
@@ -71,9 +92,10 @@ class MCTS():
         #initialize the children nodes
         for i,p in enumerate(policy):
             root.children[i] = GameNode(root, p)
-            root.children[i].player = game.player()
 
-        for _ in range(config.num_simulations):
+        #for _ in range(config.num_simulations):
+        for _ in range(1):
+            root.print()
             node = root
             trial = game.clone()
 
@@ -85,13 +107,15 @@ class MCTS():
                 act = self.select_action(node)
                 #take the action
                 trial.move(act)
+                node = node.children[act]
+                node.player = trial.player()
 
             policy,val = network()
             for i,p in enumerate(policy):
                 node.children[i] = GameNode(node, p)
-                node.children[i].player = trial.player()
 
             self.update_tree(node, val, trial.player())
+
         return root
 
     # choose an action "proportional for exploration
@@ -99,21 +123,33 @@ class MCTS():
     def step(self,root):
         v = [(action,child.visit_count) for (action, child) in root.children.items()]
         v.sort(key=lambda x: x[0] )
-        print(v)
-        visits = torch.tensor([v for (a,v) in v])
-        print(visits)
+        visits = torch.tensor([v for (a,v) in v]).float()
         softmax = functional.softmax(visits)
         #sample 
         i  = random.uniform(0,1)
+        tot = 0
         for idx,x in enumerate(softmax):
-            if i <= x:
+            tot = tot + x
+            if i <= tot:
                 return idx
             
 
+def watchGame(gameDir):
+    #os.system('clear')
+    turns = os.listdir(gameDir)
+    turns.sort()
+    frames = []
+    for turnFile in turns:
+        with open(f"{gameDir}/{turnFile}", "r") as f:
+            frames.append(f.readlines())
+    for frame in frames:
+        print("".join(frame))
+        time.sleep(2)
+        os.system('clear')
 
-def play_game():
+
+def play_game(game):
     mcts = MCTS()
-    game = ConnectFour(4,4,1)
     while True:
         winner = game.gameWinner()
         if(winner):
@@ -121,9 +157,13 @@ def play_game():
         if game.gameTie():
             break
         root = mcts.run_sim(game)
-        print(root.children)
+        #mcts.print_tree(root)
         action = mcts.step(root)
+        print(f"Action: {action}")
         game.move(action)
+        print(game.state())
 
-play_game()
-
+shutil.rmtree("testMCTS")
+game = ConnectFour(4,4,True, "testMCTS")
+play_game(game)
+#watchGame("testMCTS")
