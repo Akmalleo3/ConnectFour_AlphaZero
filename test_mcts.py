@@ -24,11 +24,11 @@ def test_update_tree():
     c4 = GameNode(c3,0.3)
     c3.children[1] = c4
     c4.player = 1
-    mcts.update_tree(c4,1.4,1)
-
+    root = mcts.update_tree(c3,1.4,1)
+    print("update 1")
     mcts.print_tree(root)
-
-    mcts.update_tree(c4, 1.5,1)
+    print("update 2")
+    root = mcts.update_tree(c4, 1.5,1)
 
     mcts.print_tree(root)
 
@@ -47,5 +47,6 @@ def test_run_sim():
     mcts = MCTS()
     game = ConnectFour(4,4,1, "testMCTS")
     root = mcts.run_sim(game)
+    print("tree after sim")
     mcts.print_tree(root)
 

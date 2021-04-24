@@ -32,7 +32,7 @@ while(not cf.gameTie()):
     move = rng.integers(len(actions))
     valid = False
     while(not valid):
-        valid = cf.move(player,actions[move])
+        valid = cf.move(actions[move])
 
     winner = cf.gameWinner()
     if winner:

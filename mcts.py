@@ -73,16 +73,19 @@ class MCTS():
     # into value estimations for each
     # node along the path. increment visit counts
     def update_tree(self, node,val, player):
-        while node.parent != {}:
+        while 1:
             if node.player == player:
                 node.total_action_value += val
             else:
                 node.total_action_value += (1-val)
             node.visit_count += 1
+            if node.parent == {}:
+                break
             node = node.parent
 
+        return node
+
     def run_sim(self, game):
-       
         root = GameNode({},1)
         root.player = game.player()
         # evaluate network for this state
@@ -93,9 +96,7 @@ class MCTS():
         for i,p in enumerate(policy):
             root.children[i] = GameNode(root, p)
 
-        #for _ in range(config.num_simulations):
-        for _ in range(1):
-            root.print()
+        for _ in range(config.num_simulations):
             node = root
             trial = game.clone()
 
@@ -114,7 +115,7 @@ class MCTS():
             for i,p in enumerate(policy):
                 node.children[i] = GameNode(node, p)
 
-            self.update_tree(node, val, trial.player())
+            root = self.update_tree(node, val, trial.player())
 
         return root
 
@@ -125,6 +126,7 @@ class MCTS():
         v.sort(key=lambda x: x[0] )
         visits = torch.tensor([v for (a,v) in v]).float()
         softmax = functional.softmax(visits)
+        #TODO replace with random.choices 
         #sample 
         i  = random.uniform(0,1)
         tot = 0
@@ -150,6 +152,8 @@ def watchGame(gameDir):
 
 def play_game(game):
     mcts = MCTS()
+    #print("init state")
+    game.state()
     while True:
         winner = game.gameWinner()
         if(winner):
@@ -157,13 +161,15 @@ def play_game(game):
         if game.gameTie():
             break
         root = mcts.run_sim(game)
+        #print(f"state before: {game.state()}")
+        #print("tree")
         #mcts.print_tree(root)
         action = mcts.step(root)
-        print(f"Action: {action}")
+        #print(f"Action: {action}")
         game.move(action)
-        print(game.state())
+        #print(f"moved: {game.state()}")
 
 shutil.rmtree("testMCTS")
-game = ConnectFour(4,4,True, "testMCTS")
+game = ConnectFour(5,5,True, "testMCTS")
 play_game(game)
-#watchGame("testMCTS")
+watchGame("testMCTS")

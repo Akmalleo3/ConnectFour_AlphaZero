@@ -44,10 +44,10 @@ class ConnectFour():
 
     def clone(self):
         newGame = ConnectFour(self.width, self.height, False)
-        newGame.p1_connectedSets = self.p1_connectedSets
-        newGame.p2_connectedSets = self.p2_connectedSets
-        newGame.board = self.board
-        newGame.colPieceCount = self.colPieceCount  
+        newGame.p1_connectedSets = list(self.p1_connectedSets)
+        newGame.p2_connectedSets = list(self.p2_connectedSets)
+        newGame.board = dict(self.board)
+        newGame.colPieceCount = dict(self.colPieceCount)
         return newGame
 
     # Drop a piece into specified column
