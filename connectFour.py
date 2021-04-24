@@ -2,8 +2,26 @@
 import os
 from datetime import datetime
 import shutil
-
+import torch
 from ConnectedSetsManager import ConnectedSetsManager
+
+# Convert a game to an image input for the network
+# tensor is of size nxnx(2T) 2 boards for each timestep,
+# one for each player's positions at time t, from 0->T end of game
+def historyToImage(history,width, height):
+    state = torch.zeros((2*len(history),width,height))
+    t = 0
+    for board in history:
+        pToVal = {1:1, 2:0, 0:0}
+        p1 = torch.tensor([pToVal[val] for val in board.values()])
+        p1 = torch.reshape(p1, (width,height))
+        pToVal = {1:0, 2:1, 0:0}
+        p2 = torch.tensor([pToVal[val] for val in board.values()])
+        p2 = torch.reshape(p2, (width,height))
+        state[t] = p1
+        state[t+1] = p2
+        t = t+2
+    return state
 
 class ConnectFour():
     def __init__(self, width, height, doSave, gameDir=None, **kwargs):
@@ -11,6 +29,7 @@ class ConnectFour():
         self.height = height
         self.doSave = doSave
         ntiles = width*height
+        self.history = []
         self.board = {}
         # map col number to height of column 
         self.colPieceCount = {}
@@ -76,6 +95,7 @@ class ConnectFour():
             self.p2_connectedSets = self.connectedSetManager.insertTile(tileIndex, self.p2_connectedSets)
 
         if self.doSave:
+            self.history.append(dict(self.board))
             self.draw()
 
         self.turnNum += 1
@@ -101,7 +121,7 @@ class ConnectFour():
 
     #no more moves, game over
     def gameTie(self):
-        return len(self.legalMoves()) == 0
+        return (len(self.legalMoves()) == 0)
         
     def draw(self):
         if self.turnNum < 10:

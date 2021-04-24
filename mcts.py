@@ -17,7 +17,7 @@ config = cfg()
 # will return (p,v)
 # policy vector and expected value of the state
 def network():
-    n_legal_moves = 4
+    n_legal_moves = 5
     x = torch.rand(1, n_legal_moves)
     p = functional.softmax(x,dim=1)
     p = p.squeeze()
@@ -96,7 +96,8 @@ class MCTS():
         for i,p in enumerate(policy):
             root.children[i] = GameNode(root, p)
 
-        for _ in range(config.num_simulations):
+        for _ in range(5):
+        #for _ in range(config.num_simulations):
             node = root
             trial = game.clone()
 
@@ -155,6 +156,8 @@ def play_game(game):
     #print("init state")
     game.state()
     while True:
+        if game.turnNum > game.width*game.height:
+            break
         winner = game.gameWinner()
         if(winner):
             break
@@ -169,7 +172,8 @@ def play_game(game):
         game.move(action)
         #print(f"moved: {game.state()}")
 
-shutil.rmtree("testMCTS")
-game = ConnectFour(5,5,True, "testMCTS")
-play_game(game)
-watchGame("testMCTS")
+#shutil.rmtree("testMCTS")
+#game = ConnectFour(5,5,True, "testMCTS")
+#play_game(game)
+#print(game.history)
+#watchGame("testMCTS")
