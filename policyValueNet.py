@@ -1,10 +1,4 @@
 
-
-# Decision one: the input to the network will be the game board
-# at the current time step. 
-
-# Decision two: 19 resnet is overkill for connect four. Going to 
-# start small with a one block  
 import torch
 import torch.nn as nn
 import torch.nn.functional as f
@@ -54,12 +48,13 @@ class PolicyValueNet(nn.Module):
         p = p.view(n,-1)
         p = self.ll1(p)
         policy = f.softmax(p)
-        print(f"policy {policy}")
+        #print(f"policy {policy}")
         
         #value 
         v = f.relu(self.conv4(x))
         n,c,w,h = v.shape
         v = v.view(n,-1)
         v = f.tanh(self.ll2(v))
-        print(f"value: {v}")
-        return policy,v
+        #print(f"value: {v}")
+        return policy.float() ,v.float()
+

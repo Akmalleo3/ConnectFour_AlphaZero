@@ -9,6 +9,7 @@ from torch.nn import functional
 
 from AlphaZeroConfig import AlphaZeroConfig as cfg
 from connectFour import ConnectFour
+from connectFour import historyToImage
 
 config = cfg()
 
@@ -54,6 +55,11 @@ class GameNode():
     def isLeaf(self):
         return len(self.children) == 0
 
+    def computeTargetPolicy(self):
+        totalChildVisits = sum(child.visit_count for child in self.children.values())
+        policy = [child.visit_count/totalChildVisits for child in self.children.values()]
+        return policy 
+
 class MCTS():
     #select max_a (Q+U)
     def select_action(self, node):
@@ -96,7 +102,7 @@ class MCTS():
         for i,p in enumerate(policy):
             root.children[i] = GameNode(root, p)
 
-        for _ in range(5):
+        for _ in range(100):
         #for _ in range(config.num_simulations):
             node = root
             trial = game.clone()
@@ -153,8 +159,9 @@ def watchGame(gameDir):
 
 def play_game(game):
     mcts = MCTS()
-    #print("init state")
     game.state()
+    policies = []
+    images = []
     while True:
         if game.turnNum > game.width*game.height:
             break
@@ -170,10 +177,25 @@ def play_game(game):
         action = mcts.step(root)
         #print(f"Action: {action}")
         game.move(action)
+        
+        images.append(historyToImage(game.history, game.width, game.height))
+        policies.append(root.computeTargetPolicy()) 
         #print(f"moved: {game.state()}")
 
+    #update the value once the game is over
+    targets = []
+    if winner == 1:
+        playerToReward = {1:1, 2:-1}
+    elif winner == 2:
+        playerToReward = {1:-1, 2:1}
+    else:
+        playerToReward = {1:0, 2:0}
+    for i,p in enumerate(policies):
+        targets.append((p,playerToReward[i%2 + 1]))
+
+    return  images, targets
 #shutil.rmtree("testMCTS")
-#game = ConnectFour(5,5,True, "testMCTS")
+#game = ConnectFour(5,5,True,"testMCTS")
 #play_game(game)
 #print(game.history)
 #watchGame("testMCTS")

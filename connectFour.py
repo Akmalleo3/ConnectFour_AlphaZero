@@ -23,11 +23,25 @@ def historyToImage(history,width, height):
         t = t+2
     return state
 
+
+def boardToImage(board, width, height):
+    image = torch.zeros((2,width, height))
+    pToVal = {1:1, 2:0, 0:0}
+    p1 = torch.tensor([pToVal[val] for val in board.values()])
+    p1 = torch.reshape(p1, (width,height))
+    pToVal = {1:0, 2:1, 0:0}
+    p2 = torch.tensor([pToVal[val] for val in board.values()])
+    p2 = torch.reshape(p2, (width,height))
+    image[0] = p1
+    image[1] = p2
+    return image
+
 class ConnectFour():
-    def __init__(self, width, height, doSave, gameDir=None, **kwargs):
+    def __init__(self, width, height, doSave, doDraw=False, gameDir=None, **kwargs):
         self.width = width
         self.height = height
         self.doSave = doSave
+        self.doDraw = doDraw
         ntiles = width*height
         self.history = []
         self.board = {}
@@ -96,6 +110,8 @@ class ConnectFour():
 
         if self.doSave:
             self.history.append(dict(self.board))
+        
+        if self.doDraw:
             self.draw()
 
         self.turnNum += 1
@@ -122,7 +138,8 @@ class ConnectFour():
     #no more moves, game over
     def gameTie(self):
         return (len(self.legalMoves()) == 0)
-        
+    
+    # for game animation afterwards
     def draw(self):
         if self.turnNum < 10:
             turn = "turn0"
