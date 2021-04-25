@@ -91,12 +91,25 @@ class MCTS():
 
         return node
 
-    def run_sim(self, game):
+    def run_sim(self, game,network):
+        T = 10
         root = GameNode({},1)
         root.player = game.player()
+        
         # evaluate network for this state
-        s = game.state()
-        policy,val = network()
+        img = historyToImage(game.history, game.width, game.height)
+        (timeSteps, w,h) = img.shape
+        diff = T-timeSteps
+        if diff > 0:
+            img = torch.cat([img, torch.zeros(diff,w,h)])
+        elif diff < 0:
+            img = img[0:10, :,:]
+
+        image = img.unsqueeze(0)
+        
+        policy,val = network(image)
+
+        #policy,val = network()
 
         #initialize the children nodes
         for i,p in enumerate(policy):
@@ -118,7 +131,17 @@ class MCTS():
                 node = node.children[act]
                 node.player = trial.player()
 
-            policy,val = network()
+            img = historyToImage(game.history, game.width, game.height)
+            (timeSteps, w,h) = img.shape
+            diff = T-timeSteps
+            if diff > 0:
+                img = torch.cat([img, torch.zeros(diff,w,h)])
+            elif diff < 0:
+                img = img[0:10, :,:]
+
+            image = img.unsqueeze(0)
+            policy,val = network(image)
+            #policy,val = network()
             for i,p in enumerate(policy):
                 node.children[i] = GameNode(node, p)
 
@@ -157,7 +180,7 @@ def watchGame(gameDir):
         os.system('clear')
 
 
-def play_game(game):
+def play_game(game,network):
     mcts = MCTS()
     game.state()
     policies = []
@@ -170,7 +193,7 @@ def play_game(game):
             break
         if game.gameTie():
             break
-        root = mcts.run_sim(game)
+        root = mcts.run_sim(game,network)
         #print(f"state before: {game.state()}")
         #print("tree")
         #mcts.print_tree(root)

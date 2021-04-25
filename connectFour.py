@@ -58,11 +58,11 @@ class ConnectFour():
             self.colPieceCount[c] = 0
 
         # Set up the directory to save each turn
-        if doSave and not gameDir:
+        if doDraw and not gameDir:
             dt = datetime.now().time()
             self.saveDir = f"./game_{dt}"
             os.mkdir(self.saveDir)
-        elif doSave:
+        elif doDraw:
             self.saveDir = gameDir
             os.mkdir(self.saveDir)
 

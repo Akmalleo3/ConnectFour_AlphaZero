@@ -24,20 +24,13 @@ class PolicyValueNet(nn.Module):
     def forward(self,x):
         in_x = x
         x = self.conv1(x)
-        #print(x.shape)
         x = self.bn1(x)
-        #print(x.shape)
         x = f.relu(x)
-        #print(x.shape)
 
         x = self.conv2(x)
-        #print(x.shape)
         x = self.bn2(x)
-        #print(x.shape)
         x = f.relu(x)
-        #print(x.shape)
         #x = x + in_x #TODO possibly
-
 
         #policy
         p = self.conv3(x)

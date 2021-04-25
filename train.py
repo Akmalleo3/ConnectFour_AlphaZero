@@ -10,17 +10,18 @@ from torch import nn
 batchSize = 100
 width = 5
 height = 5
-def collectGameData(game):
+def collectGameData(network):
     #play 5 games and then sample uniformly from the aggregated data for training
     game_images = []
     game_targets = []
     for _ in range(10):
-        images, targets = play_game(game)
+        game = ConnectFour(width,height,True)
+        images, targets = play_game(game, network)
         game_images.append(images)
         game_targets.append(targets)
     flattened_images = list(itertools.chain.from_iterable(game_images))
     flattened_targets = list(itertools.chain.from_iterable(game_targets))
-
+    batchSize = min(len(flattened_images), 100)
     sample_indices = numpy.random.choice(range(len(flattened_images)),batchSize)
     sample_images = [flattened_images[i] for i in sample_indices]
     sample_targets = [flattened_targets[i] for i in sample_indices]
@@ -28,6 +29,7 @@ def collectGameData(game):
     return list(zip(sample_images, sample_targets))
 
 def train(batch,model, optimizer):
+    mse = nn.MSELoss()
     loss = 0
     T = 10 # number of time steps of history
     ### ??? 0 pad if the history snapshot shorter than 10??
@@ -47,24 +49,21 @@ def train(batch,model, optimizer):
         # Cross entropy is p^T log(q)
         crossEntropy = torch.dot(target_policy.float(), torch.log(policy.squeeze()))
         loss += (mse(value, target_val) -  crossEntropy)
-
     loss.backward()
     optimizer.step()
 
 
 def run():
     model = PolicyValueNet(width, height)
-    game = ConnectFour(width,height,True)
-    mse = nn.MSELoss()
     optimizer = optim.SGD(model.parameters(), lr=2e-2, momentum=0.9,weight_decay=1e-4)
 
     batchidx = 0
-    while batchIdx < 50:
+    while batchidx < 50:
         model.eval()
-        batch = collectGameData(game)
+        batch = collectGameData(model)
         model.train()
         train(batch,model,optimizer)
-        if batch_idx % 10 == 0:
+        if batchidx % 10 == 0:
             torch.save(model.state_dict(), "Sunday.pth")
         batchidx +=1
 
