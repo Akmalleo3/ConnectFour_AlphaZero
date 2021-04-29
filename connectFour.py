@@ -9,7 +9,8 @@ from ConnectedSetsManager import ConnectedSetsManager
 # tensor is of size nxnx(2T) 2 boards for each timestep,
 # one for each player's positions at time t, from 0->T end of game
 def historyToImage(history,width, height):
-    state = torch.zeros((2*len(history),width,height))
+    cuda = torch.device('cuda')
+    state = torch.zeros((2*len(history),width,height),device=cuda)
     t = 0
     for board in history:
         pToVal = {1:1, 2:0, 0:0}

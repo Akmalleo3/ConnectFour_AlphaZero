@@ -17,7 +17,7 @@ config = cfg()
 # placeholder
 # will return (p,v)
 # policy vector and expected value of the state
-def network():
+def random_network():
     n_legal_moves = 5
     x = torch.rand(1, n_legal_moves)
     p = functional.softmax(x,dim=1)
@@ -91,25 +91,27 @@ class MCTS():
 
         return node
 
-    def run_sim(self, game,network):
+    def run_sim(self, game,network, useNetwork):
         T = 10
         root = GameNode({},1)
         root.player = game.player()
-        
-        # evaluate network for this state
-        img = historyToImage(game.history, game.width, game.height)
-        (timeSteps, w,h) = img.shape
-        diff = T-timeSteps
-        if diff > 0:
-            img = torch.cat([img, torch.zeros(diff,w,h)])
-        elif diff < 0:
-            img = img[0:10, :,:]
+        if useNetwork:
+            cuda = torch.device('cuda')
+            # evaluate network for this state
+            img = historyToImage(game.history, game.width, game.height)
+            (timeSteps, w,h) = img.shape
+            diff = T-timeSteps
+            if diff > 0:
+                img = torch.cat([img, torch.zeros(diff,w,h,device=cuda)])
+            elif diff < 0:
+                img = img[0:10, :,:]
 
-        image = img.unsqueeze(0)
-        
-        policy,val = network(image)
+            img=img.unsqueeze(0)
 
-        #policy,val = network()
+            policy,val = network(img)
+            print(f"p: {policy}, val: {val}")
+        else:
+            policy,val = random_network()
 
         #initialize the children nodes
         for i,p in enumerate(policy):
@@ -130,18 +132,21 @@ class MCTS():
                 trial.move(act)
                 node = node.children[act]
                 node.player = trial.player()
+    
+            if(useNetwork):
 
-            img = historyToImage(game.history, game.width, game.height)
-            (timeSteps, w,h) = img.shape
-            diff = T-timeSteps
-            if diff > 0:
-                img = torch.cat([img, torch.zeros(diff,w,h)])
-            elif diff < 0:
-                img = img[0:10, :,:]
+                img = historyToImage(game.history, game.width, game.height)
+                (timeSteps, w,h) = img.shape
+                diff = T-timeSteps
+                if diff > 0:
+                    img = torch.cat([img, torch.zeros(diff,w,h,device=cuda)])
+                elif diff < 0:
+                    img = img[0:10, :,:]
 
-            image = img.unsqueeze(0)
-            policy,val = network(image)
-            #policy,val = network()
+                img = img.unsqueeze(0)
+                policy,val = network(img)
+            else:
+                policy,val = random_network()
             for i,p in enumerate(policy):
                 node.children[i] = GameNode(node, p)
 
@@ -180,9 +185,8 @@ def watchGame(gameDir):
         os.system('clear')
 
 
-def play_game(game,network):
+def play_game(game,network, useNetwork):
     mcts = MCTS()
-    game.state()
     policies = []
     images = []
     while True:
@@ -193,7 +197,11 @@ def play_game(game,network):
             break
         if game.gameTie():
             break
-        root = mcts.run_sim(game,network)
+        if useNetwork and game.turnNum >= 10:
+            root = mcts.run_sim(game,network,True)
+        else:
+            root = mcts.run_sim(game,network,False)
+
         #print(f"state before: {game.state()}")
         #print("tree")
         #mcts.print_tree(root)
