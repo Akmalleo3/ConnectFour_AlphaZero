@@ -42,7 +42,7 @@ class PolicyValueNet(nn.Module):
         p = p.view(n,-1)
         
         p = self.ll1(p)
-        policy = f.log_softmax(p)
+        policy = f.log_softmax(p).squeeze()
         #print(f"policy {policy}")
         
         #value 
@@ -51,5 +51,6 @@ class PolicyValueNet(nn.Module):
         v = v.view(n,-1)
         v = f.tanh(self.ll3(v))
         #print(f"value: {v}")
+        v = v.squeeze()
         return policy.float() ,v.float()
 

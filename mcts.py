@@ -41,7 +41,7 @@ class GameNode():
         return self.total_action_value/self.visit_count
 
     def U(self):
-        c = math.log((1+self.visit_count + config.pb_c_base)/config.pb_c_base)
+        c = math.log((1+self.parent.visit_count + config.pb_c_base)/config.pb_c_base)
         c = c + config.pb_c_init
         # N(s) = parent visit count, N(s,a) is this node visit count
         u = c*self.prior_prob*math.sqrt(self.parent.visit_count)
@@ -64,10 +64,10 @@ class GameNode():
         return policy 
 
 class MCTS():
-    #select max_a (Q+U)
-    def select_action(self, node):
+    # compute (Q+U)
+    def compute_action_vals(self, node):
         q_plus_u = numpy.array([(child.Q() + child.U()) for (action,child) in node.children.items()])
-        return numpy.argmax(q_plus_u)
+        return q_plus_u
 
     def print_tree(self,root):
         node = root
@@ -93,10 +93,18 @@ class MCTS():
             node = node.parent
 
         return node
+    def add_exploration_noise(self,node):
+        actions = node.children.keys()
+        noise = numpy.random.gamma(config.root_dirichlet_alpha, 1, len(actions))
+        frac = config.root_exploration_fraction
+        for a, n in zip(actions, noise):
+            node.children[a].prior_prob = node.children[a].prior_prob * (1 - frac) + n * frac
+        return node 
 
     def run_sim(self, game,network, useNetwork):
         T = 10
         root = GameNode({},1)
+        root.visit_count = 1
         root.player = game.player()
         if useNetwork:
             cuda = torch.device('cuda')
@@ -110,7 +118,8 @@ class MCTS():
                 img = img[timeSteps-T-1:timeSteps-1, :,:]
             img=img.unsqueeze(0)
             #print(img)
-            policy,val = network(img)
+            log_policy,val = network(img)
+            policy = torch.exp(log_policy)
             #print(f"p: {policy}, val: {val}")
         else:
             policy,val = random_network()
@@ -119,24 +128,38 @@ class MCTS():
         for i,p in enumerate(policy):
             root.children[i] = GameNode(root, p)
 
+        root = self.add_exploration_noise(root)
         for _ in range(500):
         #for _ in range(config.num_simulations):
             node = root
             trial = game.clone()
 
             #traverse down the tree
-            while not node.isLeaf():
-                s = trial.state()
-                #select the action maximizing expected value
-                actions = trial.legalMoves()
-                act = self.select_action(node)
+            while not node.isLeaf() and not trial.gameWinner() and not trial.gameTie():
+                #select the action maximizing expected value                
+                action_vals = self.compute_action_vals(node)
+
                 #take the action
-                trial.move(act)
+                success = False
+                n_fail = 0
+                while(not success):
+                    act = numpy.argmax(action_vals)
+                    if act.dtype != numpy.int64:
+                        act = act.item()
+                    success = trial.move(act)
+                    if not success:
+                        action_vals[act] = -numpy.inf
+                    if n_fail > 5: 
+                        print("FAIL")
+                        import pdb
+                        pdb.set_trace()
+                        print(self.compute_action_vals(node))
+                    n_fail += 1
+
                 node = node.children[act]
                 node.player = trial.player()
     
             if(useNetwork):
-
                 img = historyToImage(game.history, game.width, game.height)
                 (timeSteps, w,h) = img.shape
                 diff = T-timeSteps
@@ -146,7 +169,8 @@ class MCTS():
                     img = img[timeSteps-T-1:timeSteps-1, :,:]
 
                 img = img.unsqueeze(0)
-                policy,val = network(img)
+                log_policy,val = network(img)
+                policy = torch.exp(log_policy)
             else:
                 policy,val = random_network()
             for i,p in enumerate(policy):
@@ -214,7 +238,7 @@ def play_game(game,network, useNetwork):
             if not success:
                 action_probs = renormalize(action_probs, action)
         #if useNetwork:
-            #print(f"action {action}")
+        #    print(f"action {action}")
         
         images.append(historyToImage(game.history, game.width, game.height))
         policies.append(root.computeTargetPolicy(game.width)) 

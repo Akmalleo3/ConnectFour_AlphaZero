@@ -7,21 +7,21 @@ import torch
 from torch import optim
 from torch import nn
 
-batchSize = 1024
+batchSize = 100
 width = 5
 height = 5
 def collectGameData(network, useNetwork):
     #play 5 games and then sample uniformly from the aggregated data for training
     game_images = []
     game_targets = []
-    for _ in range(25):
+    for _ in range(20):
         game = ConnectFour(width,height,True)
         images, targets = play_game(game, network, useNetwork)
         game_images.append(images)
         game_targets.append(targets)
     flattened_images = list(itertools.chain.from_iterable(game_images))
     flattened_targets = list(itertools.chain.from_iterable(game_targets))
-    batchSize = min(len(flattened_images), 1024)
+    batchSize = min(len(flattened_images), 100)
     sample_indices = numpy.random.choice(range(len(flattened_images)),batchSize)
     sample_images = [flattened_images[i] for i in sample_indices]
     sample_targets = [flattened_targets[i] for i in sample_indices]
@@ -53,7 +53,7 @@ def train(batch,model, optimizer):
         #print(f"val: {value}")
         # Cross entropy is p^T log(q)
         #print(torch.log(policy.squeeze()))
-        crossEntropy = torch.dot(target_policy.float(), log_policy.squeeze())
+        crossEntropy = torch.dot(target_policy.float(), log_policy)
         #print(f"CE: {crossEntropy}")
         loss += (mse(value.squeeze(), target_val) -  crossEntropy).cpu()
     print(f"loss: {loss}")
@@ -71,7 +71,7 @@ def run():
     batchidx = 0
     useNetwork = False
     while batchidx < 10:
-        if batchidx > 3:
+        if batchidx > -1:
             useNetwork = True
         model.eval()
         print("Simulating  games")
