@@ -55,9 +55,12 @@ class GameNode():
     def isLeaf(self):
         return len(self.children) == 0
 
-    def computeTargetPolicy(self):
+    def computeTargetPolicy(self, num_actions):
         totalChildVisits = sum(child.visit_count for child in self.children.values())
-        policy = [child.visit_count/totalChildVisits for child in self.children.values()]
+        childVisits = [self.children[a].visit_count if a in self.children else 0
+            for a in range(num_actions)]
+
+        policy = [vc/totalChildVisits for vc in childVisits]
         return policy 
 
 class MCTS():
@@ -104,12 +107,11 @@ class MCTS():
             if diff > 0:
                 img = torch.cat([img, torch.zeros(diff,w,h,device=cuda)])
             elif diff < 0:
-                img = img[0:10, :,:]
-
+                img = img[timeSteps-T-1:timeSteps-1, :,:]
             img=img.unsqueeze(0)
-
+            #print(img)
             policy,val = network(img)
-            print(f"p: {policy}, val: {val}")
+            #print(f"p: {policy}, val: {val}")
         else:
             policy,val = random_network()
 
@@ -117,7 +119,7 @@ class MCTS():
         for i,p in enumerate(policy):
             root.children[i] = GameNode(root, p)
 
-        for _ in range(100):
+        for _ in range(500):
         #for _ in range(config.num_simulations):
             node = root
             trial = game.clone()
@@ -141,7 +143,7 @@ class MCTS():
                 if diff > 0:
                     img = torch.cat([img, torch.zeros(diff,w,h,device=cuda)])
                 elif diff < 0:
-                    img = img[0:10, :,:]
+                    img = img[timeSteps-T-1:timeSteps-1, :,:]
 
                 img = img.unsqueeze(0)
                 policy,val = network(img)
@@ -156,19 +158,13 @@ class MCTS():
 
     # choose an action "proportional for exploration
     # or greedily for exploitation wrt visit count"
-    def step(self,root):
-        v = [(action,child.visit_count) for (action, child) in root.children.items()]
+    def step(self,root,num_actions):
+        v = [(a,root.children[a].visit_count) if a in root.children else (a,0)
+            for a in range(num_actions)]
         v.sort(key=lambda x: x[0] )
         visits = torch.tensor([v for (a,v) in v]).float()
-        softmax = functional.softmax(visits)
-        #TODO replace with random.choices 
-        #sample 
-        i  = random.uniform(0,1)
-        tot = 0
-        for idx,x in enumerate(softmax):
-            tot = tot + x
-            if i <= tot:
-                return idx
+        probs = functional.softmax(visits)
+        return probs
             
 
 def watchGame(gameDir):
@@ -184,6 +180,11 @@ def watchGame(gameDir):
         time.sleep(2)
         os.system('clear')
 
+def renormalize(dist, idx):
+    dist[idx] = 0
+    total = sum(dist)
+    dist = dist/total
+    return dist
 
 def play_game(game,network, useNetwork):
     mcts = MCTS()
@@ -201,16 +202,22 @@ def play_game(game,network, useNetwork):
             root = mcts.run_sim(game,network,True)
         else:
             root = mcts.run_sim(game,network,False)
-
-        #print(f"state before: {game.state()}")
-        #print("tree")
-        #mcts.print_tree(root)
-        action = mcts.step(root)
-        #print(f"Action: {action}")
-        game.move(action)
+        
+        action_probs = mcts.step(root, game.width)
+        # choose action according to distribution,
+        # correcting if selecting illegal move
+        success = False
+        moves = list(range(game.width))
+        while(not success):
+            action = random.choices(moves,action_probs)[0]  
+            success = game.move(action)
+            if not success:
+                action_probs = renormalize(action_probs, action)
+        #if useNetwork:
+            #print(f"action {action}")
         
         images.append(historyToImage(game.history, game.width, game.height))
-        policies.append(root.computeTargetPolicy()) 
+        policies.append(root.computeTargetPolicy(game.width)) 
         #print(f"moved: {game.state()}")
 
     #update the value once the game is over

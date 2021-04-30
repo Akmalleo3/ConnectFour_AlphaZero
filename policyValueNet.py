@@ -20,7 +20,8 @@ class PolicyValueNet(nn.Module):
 
         #value head
         self.conv4 = nn.Conv2d(64,1, kernel_size=1, stride=1)
-        self.ll2 = nn.Linear((boardHeight+1)*(boardWidth+1), 1)
+        self.ll3 = nn.Linear((boardHeight+1)*(boardWidth+1), 1)
+        
     def forward(self,x):
         in_x = x
         x = self.conv1(x)
@@ -33,21 +34,22 @@ class PolicyValueNet(nn.Module):
         #x = x + in_x #TODO possibly
 
         #policy
-        p = self.conv3(x)
-        p = self.bn3(p)
-        p = f.relu(p)
+        p = f.relu(self.conv3(x))
+        #p = self.bn3(p)
+        #p = f.relu(p)
         n,c,w,h = p.shape
 
         p = p.view(n,-1)
+        
         p = self.ll1(p)
-        policy = f.softmax(p)
+        policy = f.log_softmax(p)
         #print(f"policy {policy}")
         
         #value 
         v = f.relu(self.conv4(x))
         n,c,w,h = v.shape
         v = v.view(n,-1)
-        v = f.tanh(self.ll2(v))
+        v = f.tanh(self.ll3(v))
         #print(f"value: {v}")
         return policy.float() ,v.float()
 
