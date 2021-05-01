@@ -7,7 +7,7 @@ import torch
 from torch import optim
 from torch import nn
 
-batchSize = 100
+batchSize = 1024
 width = 5
 height = 5
 def collectGameData(network, useNetwork):
@@ -21,7 +21,7 @@ def collectGameData(network, useNetwork):
         game_targets.append(targets)
     flattened_images = list(itertools.chain.from_iterable(game_images))
     flattened_targets = list(itertools.chain.from_iterable(game_targets))
-    batchSize = min(len(flattened_images), 100)
+    batchSize = min(len(flattened_images), 1024)
     sample_indices = numpy.random.choice(range(len(flattened_images)),batchSize)
     sample_images = [flattened_images[i] for i in sample_indices]
     sample_targets = [flattened_targets[i] for i in sample_indices]
@@ -66,7 +66,8 @@ def train(batch,model, optimizer):
 def run():
     device ='cuda'
     model = PolicyValueNet(width, height)
-    optimizer = optim.SGD(model.parameters(), lr=2e-2, momentum=0.9,weight_decay=1e-4)
+    #optimizer = optim.SGD(model.parameters(), lr=2e-2, momentum=0.9,weight_decay=1e-4)
+    optimizer = optim.Adam(model.parameters(), lr=6e-3 , weight_decay=1e-4 )
     model.cuda()
     batchidx = 0
     useNetwork = False
