@@ -92,10 +92,10 @@ def eval_network(player_scheme, network,T):
 
 def eval_network_v_random():
     print("Player 1 trained net: ")
-    T = 5
+    T = 1
     device = 'cuda'
     network = PolicyValueNet(5,5,2*T)
-    network.load_state_dict(torch.load("baseline.pth",map_location=device))
+    network.load_state_dict(torch.load("baseline_nonetwork.pth",map_location=device))
     network.cuda()
     network.eval()
     eval_network(network_v_random,network,T)

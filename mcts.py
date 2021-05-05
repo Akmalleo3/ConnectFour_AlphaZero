@@ -123,7 +123,7 @@ class MCTS():
             root.children[i] = GameNode(root, p)
 
         root = self.add_exploration_noise(root)
-        for _ in range(100):
+        for _ in range(400):
         #for _ in range(config.num_simulations):
             node = root
             trial = game.clone()

@@ -71,7 +71,7 @@ def run():
     #scheduler = optim.lr_scheduler.MultiStepLR(optimizer,[3,5,8])
     model.cuda()
     batchidx = 0
-    useNetwork = True
+    useNetwork = False
     #import pdb
     #pdb.set_trace()
     while batchidx < 10:
@@ -84,7 +84,7 @@ def run():
         #scheduler.step()
         #print(f"Learning rate: {scheduler.get_last_lr()}")
         print(f"Saving batch {batchidx}")
-        torch.save(model.state_dict(), "baseline.pth")
+        torch.save(model.state_dict(), "baseline_nonetwork.pth")
         batchidx +=1
 
 run()
