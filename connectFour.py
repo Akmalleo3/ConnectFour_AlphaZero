@@ -8,7 +8,7 @@ from ConnectedSetsManager import ConnectedSetsManager
 # Convert a game to an image input for the network
 # tensor is of size nxnx(2T) 2 boards for each timestep,
 # one for each player's positions at time t, from 0->T end of game
-def historyToImage(history,width, height):
+def historyToImage(history,width, height,T):
     cuda = torch.device('cuda')
     state = torch.zeros((2*len(history),width,height),device=cuda)
     t = 0
@@ -22,6 +22,13 @@ def historyToImage(history,width, height):
         state[t] = p1
         state[t+1] = p2
         t = t+2
+
+    (n, w,h) = state.shape
+    diff = 2*T-n
+    if diff > 0:
+        state = torch.cat([torch.zeros(diff,w,h,device=cuda),state])
+    elif diff < 0:
+        state = state[abs(diff):n,:]
     return state
 
 

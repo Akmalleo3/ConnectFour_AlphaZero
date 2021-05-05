@@ -93,6 +93,7 @@ class MCTS():
             node = node.parent
 
         return node
+
     def add_exploration_noise(self,node):
         actions = node.children.keys()
         noise = numpy.random.gamma(config.root_dirichlet_alpha, 1, len(actions))
@@ -101,21 +102,14 @@ class MCTS():
             node.children[a].prior_prob = node.children[a].prior_prob * (1 - frac) + n * frac
         return node 
 
-    def run_sim(self, game,network, useNetwork):
-        T = 10
+    def run_sim(self, game,network, useNetwork,T):
         root = GameNode({},1)
         root.visit_count = 1
         root.player = game.player()
         if useNetwork:
             cuda = torch.device('cuda')
             # evaluate network for this state
-            img = historyToImage(game.history, game.width, game.height)
-            (timeSteps, w,h) = img.shape
-            diff = T-timeSteps
-            if diff > 0:
-                img = torch.cat([img, torch.zeros(diff,w,h,device=cuda)])
-            elif diff < 0:
-                img = img[timeSteps-T-1:timeSteps-1, :,:]
+            img = historyToImage(game.history, game.width, game.height,T)
             img=img.unsqueeze(0)
             #print(img)
             log_policy,val = network(img)
@@ -129,14 +123,15 @@ class MCTS():
             root.children[i] = GameNode(root, p)
 
         root = self.add_exploration_noise(root)
-        for _ in range(200):
+        for _ in range(100):
         #for _ in range(config.num_simulations):
             node = root
             trial = game.clone()
 
             #traverse down the tree
             while not node.isLeaf() and not trial.gameWinner() and not trial.gameTie():
-                #select the action maximizing expected value                
+                #select the action maximizing expected value
+
                 action_vals = self.compute_action_vals(node)
 
                 #take the action
@@ -160,14 +155,7 @@ class MCTS():
                 node.player = trial.player()
     
             if(useNetwork):
-                img = historyToImage(game.history, game.width, game.height)
-                (timeSteps, w,h) = img.shape
-                diff = T-timeSteps
-                if diff > 0:
-                    img = torch.cat([img, torch.zeros(diff,w,h,device=cuda)])
-                elif diff < 0:
-                    img = img[timeSteps-T-1:timeSteps-1, :,:]
-
+                img = historyToImage(trial.history, trial.width, trial.height,T)
                 img = img.unsqueeze(0)
                 log_policy,val = network(img)
                 policy = torch.exp(log_policy)
@@ -210,7 +198,7 @@ def renormalize(dist, idx):
     dist = dist/total
     return dist
 
-def play_game(game,network, useNetwork):
+def play_game(game,network, useNetwork,T):
     mcts = MCTS()
     policies = []
     images = []
@@ -222,10 +210,10 @@ def play_game(game,network, useNetwork):
             break
         if game.gameTie():
             break
-        if useNetwork and game.turnNum >= 10:
-            root = mcts.run_sim(game,network,True)
+        if useNetwork and game.turnNum >= T:
+            root = mcts.run_sim(game,network,True,T)
         else:
-            root = mcts.run_sim(game,network,False)
+            root = mcts.run_sim(game,network,False,T)
         
         action_probs = mcts.step(root, game.width)
         # choose action according to distribution,
@@ -240,7 +228,7 @@ def play_game(game,network, useNetwork):
         #if useNetwork:
         #    print(f"action {action}")
         
-        images.append(historyToImage(game.history, game.width, game.height))
+        images.append(historyToImage(game.history, game.width, game.height,T))
         policies.append(root.computeTargetPolicy(game.width)) 
         #print(f"moved: {game.state()}")
 

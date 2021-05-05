@@ -5,48 +5,55 @@ import torch.nn.functional as f
 import torch.optim as optim
 
 class PolicyValueNet(nn.Module):
-    def __init__(self, boardWidth, boardHeight):
+    def __init__(self, boardWidth, boardHeight, timeSteps=10):
         super(PolicyValueNet,self).__init__()
-        inputChannels = 10 #TODO 
+        inputChannels = timeSteps 
         self.conv1 = nn.Conv2d(inputChannels, 32, kernel_size=2, stride=1, padding=1)
-        self.bn1 = nn.BatchNorm2d(32)
+        #self.bn1 = nn.BatchNorm2d(32)
         self.conv2 = nn.Conv2d(32,64, kernel_size=3, stride=1, padding=1)
-        self.bn2 = nn.BatchNorm2d(64)
+        #self.bn2 = nn.BatchNorm2d(64)
+        self.conv3 = nn.Conv2d(64,128, kernel_size=3, stride=1,padding=1)
 
         #policy head
-        self.conv3 = nn.Conv2d(64,128, kernel_size=3, stride=1,padding=1)
-        self.bn3 = nn.BatchNorm2d(128)
-        self.ll1 = nn.Linear(128*(boardHeight+1)*(boardWidth+1),boardWidth)
+        self.conv4 = nn.Conv2d(128, 4, kernel_size=1)
+        #self.bn3 = nn.BatchNorm2d(128)
+        self.ll1 = nn.Linear(4*(boardHeight+1)*(boardWidth+1),boardWidth)
 
         #value head
-        self.conv4 = nn.Conv2d(64,1, kernel_size=1, stride=1)
+        self.conv5 = nn.Conv2d(128,1, kernel_size=1, stride=1)
         self.ll3 = nn.Linear((boardHeight+1)*(boardWidth+1), 1)
         
     def forward(self,x):
         in_x = x
         x = self.conv1(x)
-        x = self.bn1(x)
+        #x = self.bn1(x)
         x = f.relu(x)
 
         x = self.conv2(x)
-        x = self.bn2(x)
+        #x = self.bn2(x)
         x = f.relu(x)
         #x = x + in_x #TODO possibly
+        x = self.conv3(x)
+        x = f.relu(x)
 
         #policy
-        p = f.relu(self.conv3(x))
+        p = f.relu(self.conv4(x))
         #p = self.bn3(p)
         #p = f.relu(p)
         n,c,w,h = p.shape
+        #print(f"pshape 0: {p.shape}")
 
         p = p.view(n,-1)
-        
+        #print(f"pshape 1: {p.shape}")
+
         p = self.ll1(p)
+        #print(f"pshape 2: {p.shape}")
         policy = f.log_softmax(p).squeeze()
+        #print(f"pshape 3: {p.shape}")
         #print(f"policy {policy}")
         
         #value 
-        v = f.relu(self.conv4(x))
+        v = f.relu(self.conv5(x))
         n,c,w,h = v.shape
         v = v.view(n,-1)
         v = f.tanh(self.ll3(v))
