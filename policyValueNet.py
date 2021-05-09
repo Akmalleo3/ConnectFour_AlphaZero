@@ -24,7 +24,7 @@ class PolicyValueNet(nn.Module):
         self.ll3 = nn.Linear((boardHeight+1)*(boardWidth+1), 1)
         
     def forward(self,x):
-        in_x = x
+        #in_x = x
         x = self.conv1(x)
         #x = self.bn1(x)
         x = f.relu(x)
@@ -39,25 +39,17 @@ class PolicyValueNet(nn.Module):
         #policy
         p = f.relu(self.conv4(x))
         #p = self.bn3(p)
-        #p = f.relu(p)
         n,c,w,h = p.shape
-        #print(f"pshape 0: {p.shape}")
-
         p = p.view(n,-1)
-        #print(f"pshape 1: {p.shape}")
-
         p = self.ll1(p)
-        #print(f"pshape 2: {p.shape}")
         policy = f.log_softmax(p).squeeze()
-        #print(f"pshape 3: {p.shape}")
-        #print(f"policy {policy}")
-        
+
         #value 
         v = f.relu(self.conv5(x))
         n,c,w,h = v.shape
         v = v.view(n,-1)
         v = f.tanh(self.ll3(v))
-        #print(f"value: {v}")
         v = v.squeeze()
+
         return policy.float() ,v.float()
 

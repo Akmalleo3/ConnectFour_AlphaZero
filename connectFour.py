@@ -29,20 +29,7 @@ def historyToImage(history,width, height,T):
         state = torch.cat([torch.zeros(diff,w,h,device=cuda),state])
     elif diff < 0:
         state = state[abs(diff):n,:]
-    return state
-
-
-def boardToImage(board, width, height):
-    image = torch.zeros((2,width, height))
-    pToVal = {1:1, 2:0, 0:0}
-    p1 = torch.tensor([pToVal[val] for val in board.values()])
-    p1 = torch.reshape(p1, (width,height))
-    pToVal = {1:0, 2:1, 0:0}
-    p2 = torch.tensor([pToVal[val] for val in board.values()])
-    p2 = torch.reshape(p2, (width,height))
-    image[0] = p1
-    image[1] = p2
-    return image
+    return state.unsqueeze(0)
 
 class ConnectFour():
     def __init__(self, width, height, doSave, doDraw=False, gameDir=None, **kwargs):

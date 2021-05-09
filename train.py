@@ -14,7 +14,7 @@ def collectGameData(network, useNetwork,T):
     #play games and then sample uniformly from the aggregated data for training
     game_images = []
     game_targets = []
-    for _ in range(20):
+    for _ in range(50):
         game = ConnectFour(width,height,True)
         images, targets = play_game(game, network, useNetwork,T)
         game_images.append(images)
@@ -26,65 +26,59 @@ def collectGameData(network, useNetwork,T):
     sample_images = [flattened_images[i] for i in sample_indices]
     sample_targets = [flattened_targets[i] for i in sample_indices]
 
-    return list(zip(sample_images, sample_targets))
+    return sample_images, sample_targets
+    #return list(zip(sample_images, sample_targets))
 
-def train(batch,model, optimizer,T):
+def train(states,targets,model, optimizer,T):
     cuda = torch.device('cuda')
     mse = nn.MSELoss()
-    value_loss = torch.tensor(0)
-    policy_loss = torch.tensor(0)
-    # TODO whole batch at once    
-    optimizer.zero_grad()
+    states = torch.cat(states).cuda()
+    target_policy = [target[0] for target in targets]
+    target_val = [target[1] for target in targets]
+    log_policy, value = model(states)
+    target_policy = torch.tensor(target_policy, dtype=torch.float).cuda()
+    target_val = torch.tensor(target_val, dtype=torch.float).cuda()
 
-    for (image, (target_policy, target_val)) in batch:
-        
-        image = image.unsqueeze(0)
-        log_policy, value = model(image)
-        target_policy = torch.tensor(target_policy, dtype=torch.float).cuda()
-        target_val = torch.tensor(target_val, dtype=torch.float).cuda()
-        #print(f"target p: {target_policy}")
-        #print(f"target v: {target_val}")
-        #print(f"policy: {torch.exp(log_policy)}")
-        #print(f"val: {value}")
-        # Cross entropy is p^T log(q)
-        #print(torch.log(policy.squeeze()))
-        crossEntropy = torch.dot(target_policy.float(), log_policy)
-        #print(f"CE: {crossEntropy}")
-        value_loss = value_loss + mse(value.squeeze(), target_val)
-        policy_loss = policy_loss - crossEntropy
-    #policy_loss = policy_loss.div(len(batch))
-    #value_loss = value_loss.div(len(batch))
-    print(f"Avg policy loss: {policy_loss}")
-    print(f"MSE loss for batch {value_loss}")
+    optimizer.zero_grad()
+    value_loss = mse(value, target_val)
+    crossEntropy = torch.mean(torch.sum(target_policy*log_policy,1))
+
+    policy_loss = - crossEntropy
     loss = value_loss + policy_loss
+    print(f"policy loss: {policy_loss}")
+    print(f"val loss: {value_loss}")
     print(f"total loss: {loss}")
     loss.backward()
     optimizer.step()
+   
     return model, optimizer
 
 def run():
-    T = 5
+    T = 4
     device ='cuda'
     model = PolicyValueNet(width, height,2*T)
+    model.load_state_dict(torch.load("test_longhaul2.pth",map_location=device))
+
     #optimizer = optim.SGD(model.parameters(), lr=2e-2, momentum=0.9,weight_decay=1e-4)
-    optimizer = optim.SGD(model.parameters(), lr=2e-1 , weight_decay=1e-4 )
-    #scheduler = optim.lr_scheduler.MultiStepLR(optimizer,[3,5,8])
+    #optimizer = optim.SGD(model.parameters(), lr=2e-1 )
+    #scheduler = optim.lr_scheduler.MultiStepLR(optimizer,[20,60])
     model.cuda()
+    optimizer = optim.Adagrad(model.parameters())
+
     batchidx = 0
     useNetwork = False
-    #import pdb
-    #pdb.set_trace()
-    while batchidx < 10:
+
+    while batchidx < 50:
         model.eval()
         print("Simulating  games")
-        batch = collectGameData(model, useNetwork,T)
+        states, targets = collectGameData(model, useNetwork,T)
         print("Training")
         model.train()
-        model,optimizer = train(batch,model,optimizer,T)
+        model,optimizer = train(states,targets,model,optimizer,T)
         #scheduler.step()
         #print(f"Learning rate: {scheduler.get_last_lr()}")
         print(f"Saving batch {batchidx}")
-        torch.save(model.state_dict(), "baseline_nonetwork.pth")
+        torch.save(model.state_dict(), "test_longhaul2.pth")
         batchidx +=1
 
 run()

@@ -10,8 +10,9 @@ import time
 cuda = torch.device('cuda')
 
 
+
 def watchGame(gameDir):
-    #os.system('clear')
+    os.system('clear')
     turns = os.listdir(gameDir)
     turns.sort()
     frames = []
@@ -22,13 +23,14 @@ def watchGame(gameDir):
         print("".join(frame))
         time.sleep(2)
         os.system('clear')
+watchGame("exampleWin1")
 
 
 def model_move(model,game, T):
     img = historyToImage(game.history, game.width, game.height,T)
 
-    img = img.unsqueeze(0)
     log_policy,val = model(img)
+    #print(img)
     policy = torch.exp(log_policy).cpu().detach().numpy()
     moved = False
     while(not moved):
@@ -36,6 +38,10 @@ def model_move(model,game, T):
         moved = game.move(act)
         if not moved:
             policy = renormalize(policy,act)
+    print(f"policy: {policy}")
+    print(f"val: {val}")
+    print(f"ModelMove: {act}")
+
     return game
 
 def random_move(game):
@@ -47,8 +53,8 @@ def random_move(game):
         moved = game.move(actions[move])
     return game
 
-def network_v_random(network,T):
-    game = ConnectFour(5,5,True)
+def network_v_random(network,T, doDraw=False):
+    game = ConnectFour(5,5,True,doDraw,"testGame1")
     while(not game.gameTie()):
         if game.player() == 2:
            game = random_move(game)
@@ -58,15 +64,7 @@ def network_v_random(network,T):
             return game.gameWinner()
 
     return 0
-    '''
-    if winner == 1:
-        print("Trained Player 1 Wins!")
-    elif winner == 2:
-        print("Random player triumphed?")
-    else:
-        print("Game Tied")
-    watchGame("Trained_v_Random")
-    '''
+
 def random_v_random(nothing, nobody):
     game = ConnectFour(5,5,True)
     while(not game.gameTie()):
@@ -92,17 +90,30 @@ def eval_network(player_scheme, network,T):
 
 def eval_network_v_random():
     print("Player 1 trained net: ")
-    T = 1
+    T = 4
     device = 'cuda'
     network = PolicyValueNet(5,5,2*T)
-    network.load_state_dict(torch.load("baseline_nonetwork.pth",map_location=device))
+    network.load_state_dict(torch.load("test_longhaul2.pth",map_location=device))
     network.cuda()
     network.eval()
     eval_network(network_v_random,network,T)
 
 
-eval_network_v_random()
+#eval_network_v_random()
 
+def one_game():
+    print("Player 1 trained net: ")
+    T = 4
+    device = 'cuda'
+    network = PolicyValueNet(5,5,2*T)
+    network.load_state_dict(torch.load("test_longhaul2.pth",map_location=device))
+    network.cuda()
+    network.eval()
+    winner = network_v_random(network,T,True)
+    print(f"Player {winner} wins!")
+    watchGame("testGame1")
+
+#one_game()
 
 def eval_random_v_random():
     eval_network(random_v_random,{},0)
