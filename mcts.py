@@ -19,8 +19,8 @@ config = cfg()
 # placeholder
 # will return (p,v)
 # policy vector and expected value of the state
-def random_network():
-    n_legal_moves = 5
+def random_network(width):
+    n_legal_moves = width
     x = torch.rand(1, n_legal_moves)
     p = functional.softmax(x,dim=1)
     p = p.squeeze()
@@ -151,11 +151,10 @@ class MCTS():
     def expand_node(self, node, game, network, useNetwork,T):
         if useNetwork:
             img = historyToImage(game.history, game.width, game.height,T)
-            #img=img.unsqueeze(0)
             log_policy,val = network(img)
             policy = torch.exp(log_policy)
         else:
-            policy,val = random_network()
+            policy,val = random_network(game.width)
 
         #initialize the children nodes
         for i,p in enumerate(policy):
@@ -188,7 +187,7 @@ class MCTS():
         root, val = self.expand_node(root, game, network, useNetwork,T)
 
         root = self.add_exploration_noise(root)
-        for _ in range(100):
+        for _ in range(50):
             node = root
             trial = game.clone()
 
@@ -234,7 +233,8 @@ def watchGame(gameDir):
 
 
 
-def play_game(game,network, useNetwork,T):
+def play_game(network, useNetwork,T, width, height):
+    game = ConnectFour(width,height,True)
     mcts = MCTS()
     policies = []
     images = []

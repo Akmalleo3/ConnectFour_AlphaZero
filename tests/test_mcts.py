@@ -42,11 +42,13 @@ def test_Q_U():
     assert c1.Q() == 0
     assert c1.U() == 0
 
+@pytest.mark.skip
 def test_run_sim():
-    shutil.rmtree("testMCTS")
+    
     mcts = MCTS()
-    game = ConnectFour(4,4,1, "testMCTS")
-    root = mcts.run_sim(game)
+    game = ConnectFour(4,4, True,True, "testMCTS")
+    root = mcts.run_sim(game )
     print("tree after sim")
     mcts.print_tree(root)
+    shutil.rmtree("testMCTS")
 
