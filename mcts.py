@@ -235,6 +235,7 @@ def watchGame(gameDir):
 
 def play_game(network, useNetwork,T, width, height):
     game = ConnectFour(width,height,True)
+
     mcts = MCTS()
     policies = []
     images = []

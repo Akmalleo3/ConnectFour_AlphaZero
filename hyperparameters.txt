@@ -126,7 +126,7 @@ total loss: 10260.390625
 
 
 baseline_nonetwork- BEST SO FAR
-A) 1 B) SGD C) 2e-1 D)~425 (20 games) E)400 F) No
+A) 1 B) SGD C) 2e-1 D)~425 (20 games) E)400 F) yes
 
 vg policy loss: 558.7699584960938
 MSE loss for batch 328.797607421875
@@ -161,7 +161,7 @@ total loss: 10715.3212890625
 Saving batch 9
 
 baseline_nonetwork_T5
-A) 5 B) SGD C) 2e-1 D)~425 (20 games) E)400 F) No
+A) 5 B) SGD C) 2e-1 D)~425 (20 games) E)400 F) yes
 
 vg policy loss: 578.4185791015625
 MSE loss for batch 287.76959228515625
@@ -195,3 +195,61 @@ MSE loss for batch 717.0
 total loss: 12592.2861328125
 
 
+baseline_oneGame 
+A) 1 B) SGD C) 2e-1 D)20? 3 games, 30 batches E)400 F) No
+.345 
+
+test_fourRollouts
+A) 1 B) SGD C) 2e-1 D)512, 30 games, 10 batches E)4 F) No 
+.75!
+
+test_fourRollouts_network
+A) 1 B) SGD C) 2e-1 D)512, 30 games, 10 batches E)4 F) Yes
+.61, .005
+
+test_fourRollouts_thirtyBatches
+A) 1 B) SGD C) 2e-1 D)512, 30 games, 30 batches E)4 F) Yes 
+scheduler
+~.55
+
+test_fourRollouts_100
+A) 1 B) SGD C) 2e-1 D)100, 10 games, 10 batches E)4 F) Yes 
+.515 win rate 
+
+test_fourRolloutsFifty
+A) 1 B) SGD C) 2e-1 D)512, 30 games, 50 batches E)4 F) Yes
+win rate .69, draw-rate = 0
+
+test_100epochs
+A) 1 B) SGD C) 2e-1 D)512, 30 games, 100 batches E)20 F) after 15
+scheduler
+.4 win rate 
+
+test_100epochs_nonetwork
+A) 1 B) SGD C) 2e-1 D)512, 30 games, 100 batches E)20 F) No
+scheduler
+-------------------------------------------------------------
+
+long haul
+A) 1 B) SGD C) 2e-1 D)512 (30 games) E)100 F) False
+scheduler 20,60,80
+.4 win rate
+
+longhaul1
+A) 1 B) SGD C) 2e-1 D)512 (30 games) E)100 F) True
+scheduler 20,60
+.4
+
+
+
+longhaul3
+A) 1 B) Adagrad C) 1e-3 D)200 (40 games) E)50 F) after batch 200/500
+
+
+
+
+problems:
+
+- using network: garbage evaluation leads to garbage training values
+- The same state can result in a win or loss with one move, and so the evaluations 
+   on the states must be hard to separate.

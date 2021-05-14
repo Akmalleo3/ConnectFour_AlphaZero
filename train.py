@@ -7,30 +7,11 @@ import torch
 from torch import optim
 from torch import nn
 
-import evaluate_net as en
+from evaluate_net import eval_network,eval_network_v_random
 
 batchSize =  512
 width = 5
 height = 5
-'''
-def collectGameData(network, useNetwork,T):
-    #play games and then sample uniformly from the aggregated data for training
-    game_images = []
-    game_targets = []
-    for _ in range(40):
-        game = ConnectFour(width,height,True)
-        images, targets = play_game(game, network, useNetwork,T)
-        game_images.append(images)
-        game_targets.append(targets)
-    flattened_images = list(itertools.chain.from_iterable(game_images))
-    flattened_targets = list(itertools.chain.from_iterable(game_targets))
-    batchSize = min(len(flattened_images), 200)
-    sample_indices = numpy.random.choice(range(len(flattened_images)),batchSize)
-    sample_images = [flattened_images[i] for i in sample_indices]
-    sample_targets = [flattened_targets[i] for i in sample_indices]
-
-    return sample_images, sample_targets
-'''
 
 from torch.multiprocessing import Process, set_start_method, Queue, Barrier
 try:
@@ -47,31 +28,34 @@ def collectGameData(b, play, network, useNetwork, T, width, height, image_q, tar
 import copy
 #play games and then sample uniformly from the aggregated data for training        
 def collectGameDataParallel(network, useNetwork,T, width, height):
-    images = Queue()
-    targets = Queue()
-    ngames = 3
-    barrier = Barrier(ngames +1)
-
-    processes=[Process(target=collectGameData, args=(barrier,play_game, network,\
-                         useNetwork, T, width,height, images, targets)) \
-                            for _ in range(ngames)]
-    for p in processes:
-        p.start()
-
+    totalGames = 0
     game_images = []
     game_targets = []
-    for _ in range(ngames):
-        im = images.get()
-        game_images.append(copy.deepcopy(im))
-        del im
-        t = targets.get()
-        game_targets.append(copy.deepcopy(t))
-        del t
-    barrier.wait()
+    while totalGames < 40:
+        images = Queue()
+        targets = Queue()
+        ngames = 5
+        barrier = Barrier(ngames +1)
 
-    for p in processes:
-        p.join()
+        processes=[Process(target=collectGameData, args=(barrier,play_game, network,\
+                             useNetwork, T, width,height, images, targets)) \
+                                for _ in range(ngames)]
+        for p in processes:
+            p.start()
 
+
+        for _ in range(ngames):
+            im = images.get()
+            game_images.append(copy.deepcopy(im))
+            del im
+            t = targets.get()
+            game_targets.append(copy.deepcopy(t))
+            del t
+        barrier.wait()
+
+        for p in processes:
+            p.join()
+        totalGames += ngames
     flattened_images = list(itertools.chain.from_iterable(game_images))
     flattened_targets = list(itertools.chain.from_iterable(game_targets))
     batchSize = min(len(flattened_images), 200)
@@ -108,7 +92,7 @@ def train(states,targets,model, optimizer,T):
 
 def validate(net, T, width):
     print(f"Validating against random player")
-    win, draw = en.eval_network(en.eval_network_v_random,net,T,width)
+    win, draw = eval_network(eval_network_v_random,net,T,width)
 
 def run():
     T = 1

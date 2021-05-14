@@ -22,6 +22,7 @@ def watchGame(gameDir):
         time.sleep(2)
         os.system('clear')
 #watchGame("testGame1")
+#watchGame("exampleWin1")
 
 
 def model_move(model,game, T):
