@@ -1,10 +1,12 @@
 import math
+from queue import Queue
 import numpy
 from numpy import random as numpy_random
 
 import os
 import random
 import shutil
+from numpy.lib.function_base import _quantile_ureduce_func
 import torch
 import time
 from torch.nn import functional 
@@ -43,6 +45,8 @@ class GameNode():
         return self.total_action_value/self.visit_count
 
     def U(self):
+        if self.parent == {}:
+            return 0
         c = math.log((1+self.parent.visit_count + config.pb_c_base)/config.pb_c_base)
         c = c + config.pb_c_init
         # N(s) = parent visit count, N(s,a) is this node visit count
@@ -51,7 +55,7 @@ class GameNode():
         return u
 
     def print(self):
-        print(f"(N = {self.visit_count} W = {self.total_action_value} Q = {self.Q()} P = {self.prior_prob} )")
+        print(f"(N = {self.visit_count} W = {self.total_action_value} Q = {self.Q()} U = {self.U()} P = {self.prior_prob} )")
         
     def isLeaf(self):
         return len(self.children) == 0
@@ -89,22 +93,15 @@ class MCTS():
             if not success:
                 action_vals[act] = -numpy.inf
         return act
-    
-    def compute_visit_probabilities(self,root,num_actions):
-        v = [(a,root.children[a].visit_count) if a in root.children else (a,0)
-            for a in range(num_actions)]
-        v.sort(key=lambda x: x[0] )
-        visits = torch.tensor([v for (a,v) in v]).float()
-        probs = functional.softmax(visits)
-        return probs
-    
 
     # choose an action "proportional for exploration
     # or greedily for exploitation wrt visit count"
     def take_most_visited_action(self,root, game):
-        action_probs = self.compute_visit_probabilities(root, game.width)
+        action_probs = root.computeTargetPolicy(game.width)
         # choose action according to distribution,
         # correcting if selecting illegal move
+        #print(f"Mcts probs: {action_probs}")
+
         success = False
         moves = list(range(game.width))
         while(not success):
@@ -112,14 +109,21 @@ class MCTS():
             success = game.move(action)
             if not success:
                 action_probs = renormalize(action_probs, action)
+        #print(f"Mcts act{action}")
         return game
 
+    from queue import Queue
+    # BF print
     def print_tree(self,root):
         node = root
-        node.print()
-        if not node.isLeaf():
-            for (_,child) in node.children.items():
-                self.print_tree(child)
+        q = Queue()
+        q.put(node)
+        while not q.empty():
+            node = q.get()
+            node.print()
+            if not node.isLeaf():
+                for (_,child) in node.children.items():
+                    q.put(child)
             
     # incorporate v from network
     # into value estimations for each
@@ -187,7 +191,7 @@ class MCTS():
         root, val = self.expand_node(root, game, network, useNetwork,T)
 
         root = self.add_exploration_noise(root)
-        for _ in range(50):
+        for _ in range(25):
             node = root
             trial = game.clone()
 

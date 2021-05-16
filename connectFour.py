@@ -126,7 +126,7 @@ class ConnectFour():
     def legalMoves(self):
         availableCols = []
         for (col,row) in self.colPieceCount.items():
-            if row < self.height-1:
+            if row < self.height:
                 availableCols.append(col)
         return availableCols
 

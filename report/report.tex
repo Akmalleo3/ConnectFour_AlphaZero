@@ -1,0 +1,235 @@
+\documentclass[twoside,11pt]{article}
+
+% Any additional packages needed should be included after jmlr2e.
+% Note that jmlr2e.sty includes epsfig, amssymb, natbib and graphicx,
+% and defines many common macros, such as 'proof' and 'example'.
+%
+% It also sets the bibliographystyle to plainnat; for more information on
+% natbib citation styles, see the natbib documentation, a copy of which
+% is archived at http://www.jmlr.org/format/natbib.pdf
+
+\usepackage{jmlr2e}
+\usepackage[acronym,shortcuts,smallcaps,nowarn,nohypertypes={acronym,notation}]{glossaries}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{amsthm}       % blackboard math symbols
+\usepackage{amsfonts}       % blackboard math symbols
+
+\usepackage{bbm}
+\usepackage{siunitx}
+\usepackage{natbib}
+
+
+\newcommand{\dataset}{{\cal D}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+
+% Heading arguments are {volume}{year}{pages}{date submitted}{date published}{paper id}{author-full-names}
+
+%\jmlrheading{1}{2000}{1-48}{4/00}{10/00}{meila00a}{Marina Meil\u{a} and Michael I. Jordan}
+
+% Short headings should be running head and authors last names
+
+\ShortHeadings{Learning Connect Four}{}
+\firstpageno{1}
+
+\begin{document}
+
+\title{Learning Connect Four}
+
+\author{\name Andrea Malleo \email am101@nyu.edu \\}
+
+
+\begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
+%~\cite{chow:68}
+This paper scales down the framework of AlphaZero in both complexity and compute power,
+investigating whether the simple game of Connect Four can be solved with a commensurate
+reduction in model size and training time. 
+\end{abstract}
+
+%\begin{keywords}
+  
+%\end{keywords}
+ 
+\section{Introduction}
+Presented here is a reimplementation of the widely known and much awed AlphaZero method of 
+mastering games through reinforcement learning. This method is adapted to 
+the toy problem of Connect Four. Connect Four is particularly simple. There are only
+as many legal moves as columns on the board, and the maximum of number of moves 
+is limited to the amount of squares on the board. 
+
+\section{Background}
+
+
+
+
+\section{Main Text}
+
+
+\subsection{Methods}
+A central design choice of AlphaZero is the lack of domain knowledge embedded in the training 
+scheme. Its goal is to be a general-purpose framework 
+. As such, there are two game agnostic components to the system: the deep neural network and the
+Monte Carlo tree search algorithm. The network $(p,v) = f_{\theta}(s)$
+takes the board state over $T$ time steps as input and outputs $p$, a probability distribution vector
+over the actions to take, and  $v$, the expected outcome of the game from the current state.
+The data used to train this network is generated via self-play aided by the MC tree search. 
+Every action in every game is decided by constructing a tree of the action space rooted at 
+the current state. Over a set of
+$n$ trials, the game is advanced by traversing the tree along the path of the highest
+value states as determined thus far. If a leaf is reached before the game has ended, i.e. the trial
+has reached a state not explored in any of the previous trials, a scheme to complete the game must be chosen.
+In classic Monte Carlo tree search, moves are chosen at random until the game has a resolution. 
+The method used in the AlphaZero paper calls for evaluation of the neural network in its current state
+which will return an expected outcome of the game right away.
+ \textbf{The implications of the choice of playout or evaluation
+will be discussed in a later section}
+Once a score has been obtained, all of the states along the path have their total values updated.
+Note that at each level of the tree, the current player switches. Thus, the score of +1 for a win
+will be propagated up to every other layer in the tree, while the score of -1 for a loss will be added
+to the outcomes for the layers of the tree in between, corresponding to the other losing player. 
+A tie yields a 0 outcome. During this  update step, the visit count for each of the states is incremented. 
+From total action value and visit count, we can report 
+mean values of these nodes/states, which will effect the paths taken at the start of successive trials.
+
+After $n$ simulations have completed, a single action is finally selected proportional to its visit
+count, which directly corresponds to its estimated mean value.
+
+Each step produces one training data point. The history of the game over the last $T$ timesteps
+is the input image, and the target policy $\pi$ for this state corresponds to the 
+visit probabilities of the root node's children. Once the real game finishes, all of these steps
+also have an game outcome target, $z$. 
+ 
+The neural network used in this paper is very shallow in comparison to that used in AlphaZero, 
+as the state and action space is so reduced. There are just three convolutional layers before
+the net splits off itno its policy and value heads. Each head has an additional convolutional 
+layer followed by a fully connected linear layer. The Adagrad optimizer was chosen with an
+initial learning rate of $10^{-3}$. 
+The loss function used for parameter optimization is the sum 
+over mean squared error and cross entropy losses: $L = (z-v)^2 - \pi^T \log p$.
+With such a small network, the real bottleneck in training time was the self-play 
+time for generating the data. This implementation parallelized gameplay across five python
+processes, which approached the maximum capacity for memory on the author's computer. Due to
+this limitation, only 40 games were played per training round, generating approximately 800 data points. 
+In effort to reduce the correlation between the training points, only 200 were uniformly sampled
+from these as training data. In order to complete 50 rounds of training, between one and two
+hours of time was needed, depending on whether the Monte Carlo simulation used random
+playout or network evaluation to finish the trials.
+
+
+\subsection{Experiments}
+The first goal of the project was to get a baseline reimplementation working. 
+The models were evaluated against two Connect Four players. The first, referred to
+as the MCTS player, makes actions using the same MC simulation method detailed above.
+The second player, referred to as the random player, takes actions by sampling 
+from a uniform probability over all of the columns on the board. 
+Three versions of the framework were compared, one in which the network is used
+as intended for outcome evaluation during simulations, a second where the random 
+playout method is used to get outcomes for the trials, and a third combining 
+the two approaches, switching from no network to network halfway through training time.
+The results of this stage are contained in Figure 1 and Table 1.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{../NetworkNoNetwork_policy.jpg}\includegraphics[scale=0.5]{../NetworkNoNetwork_val.jpg}
+    \caption{Loss over time comparison. What looks like superior convergence for the network design does not correspond 
+    with better validation metrics.}
+\end{figure}
+
+\begin{table}[ht]
+\caption{Performance ratings are over an average of 500 rounds of play.}
+\begin{center}
+    \begin{tabular}{||c ||c c c||} 
+    \hline
+     & Nework & No Network & Half Network \\ [0.5ex] 
+    \hline\hline
+    Win rate v. MCTS & 0.846 & 0.856 & 0.838\\ 
+    \hline
+    Draw rate v. MCTS & 0.046 & 0.042 & 0.034 \\
+    \hline
+    Win rate v. Random & 0.494 & 0.538 & 0.518 \\
+    \hline
+    Draw rate v. Random & 0.092 & 0.11 & 0.103 \\
+    \hline
+   \end{tabular}
+   \end{center}
+\end{table}
+
+In the baseline experiments, 400 rounds of Monte Carlo trials are used at each 
+action step. While this is half of what is used in AlphaZero, the question could
+be asked whether 100 rollouts, or even just 25, are sufficient enough to capture
+the ideal action to take.
+
+\begin{center}
+    \begin{tabular}{||c c c c||} 
+    \hline
+     & 400 & 100 & 25 \\ [0.5ex] 
+    \hline\hline
+    Win rate v. MCTS & 0.838 & 0.834 & 0.86 \\ 
+    \hline
+    Draw rate v. MCTS & 0.034 & 0.038 & 0.034 \\
+    \hline
+    Win rate v. Random &  0.518 & 0.509 & 0.532 \\
+    \hline
+    Draw rate v. Random & 0.103 & 0.1046 & 0.106 \\
+    \hline
+   \end{tabular}
+   \end{center}
+
+% Conjecturing / Data about the number of simulations per step 
+
+So far, the number of timesteps of history provided in a training image has been $T=1$. 
+The next set of experiments investigated whether including more history would yields
+better outcomes. $T=5$ and $T=10$ were chosen. The data suggests that 
+
+
+\begin{center}
+    \begin{tabular}{||c c c c||} 
+    \hline
+     & T=1 & T=5 & T=10 \\ [0.5ex] 
+    \hline\hline
+    Win rate v. MCTS & 6 & 87837 & 787 \\ 
+    \hline
+    Draw rate v. MCTS & 7 & 78 & 5415 \\
+    \hline
+    Win rate v. Random & 545 & 778 & 7507 \\
+    \hline
+    Draw rate v. Random & 545 & 18744 & 7560 \\
+    \hline
+   \end{tabular}
+   \end{center}
+% Conjecturing / Data about the number of time steps 
+
+% Conjecturing / Data with increasing board size
+
+% graph action distributions as the state changes
+
+
+\subsection{Discussion}
+%{\noindent \em Remainder omitted in this sample. See http://www.jmlr.org/papers/ for full paper.}
+% use of classical vs. neural network evaluation
+
+% weak state signal 
+
+% double use of q 
+
+
+% Acknowledgements should go at the end, before appendices and references
+%\acks{ }
+
+
+\section {References}
+
+\newpage
+
+\appendix
+\section*{Appendix A.}
+
+\vskip 0.2in
+\bibliographystyle{plain}
+\bibliography{sample}
+\end{document}
+
+
+
+

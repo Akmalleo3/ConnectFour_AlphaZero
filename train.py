@@ -7,11 +7,11 @@ import torch
 from torch import optim
 from torch import nn
 
-from evaluate_net import eval_network,eval_network_v_random
+from evaluate_net import eval_network,eval_network_v_mcts, eval_network_v_random
 
 batchSize =  512
-width = 5
-height = 5
+width = 7
+height = 6
 
 from torch.multiprocessing import Process, set_start_method, Queue, Barrier
 try:
@@ -91,35 +91,37 @@ def train(states,targets,model, optimizer,T):
 
 
 def validate(net, T, width):
+    print(f"Validating against mcts player")
+    eval_network_v_mcts(net)
     print(f"Validating against random player")
-    win, draw = eval_network(eval_network_v_random,net,T,width)
+    eval_network_v_random(net)
 
 def run():
     T = 1
     device ='cuda'
     model = PolicyValueNet(width, height,2*T)
-    #model.load_state_dict(torch.load("test_longhaul3.pth",map_location=device))
+    model.load_state_dict(torch.load("testing.pth",map_location=device))
 
     #optimizer = optim.SGD(model.parameters(), lr=2e-2, momentum=0.9,weight_decay=1e-4)
     #optimizer = optim.SGD(model.parameters(), lr=2e-1 )
     #scheduler = optim.lr_scheduler.MultiStepLR(optimizer,[20,60])
     model.cuda()
     model.share_memory()
-    optimizer = optim.Adagrad(model.parameters(), lr=1e-3)
+    optimizer = optim.Adagrad(model.parameters(), lr=4e-3)
 
     batchidx = 0
-    useNetwork = False
-
-    while batchidx < 1:
-        if batchidx == 200:
-            useNetwork = True
+    useNetwork = True
+    batchidx=39
+    while batchidx < 100:
+        if batchidx == 25:
+           useNetwork = True
         model.eval()
         print("Simulating  games")
         states, targets = collectGameDataParallel(model, useNetwork,T, width, height)
         print("Training")
         model.train()
         model,optimizer = train(states,targets,model,optimizer,T)
-        if batchidx % 20:
+        if batchidx % 10 == 0:
             validate(model, T, width)
         #scheduler.step()
         #print(f"Learning rate: {scheduler.get_last_lr()}")
