@@ -42,9 +42,9 @@
 
 \begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
 %~\cite{chow:68}
-This paper scales down the framework of AlphaZero in both complexity and compute power,
-investigating whether the simple game of Connect Four can be solved with a commensurate
-reduction in model size and training time. 
+In this paper we scale down the framework of AlphaZero,
+investigating whether the simpler game of Connect Four can be solved with a commensurate
+reduction in model size and compute time. 
 \end{abstract}
 
 %\begin{keywords}
@@ -52,28 +52,48 @@ reduction in model size and training time.
 %\end{keywords}
  
 \section{Introduction}
-Presented here is a reimplementation of the widely known and much awed AlphaZero method of 
+General game playing \cite{GeneralGamePlay} is concerned with unspecialized AI systems
+capable of learning to play many different types of games well. 
+
+Presented here is a reimplementation of the AlphaZero method of 
 mastering games through reinforcement learning. This method is adapted to 
 the toy problem of Connect Four. Connect Four is particularly simple. There are only
 as many legal moves as columns on the board, and the maximum of number of moves 
 is limited to the amount of squares on the board. 
 
 \section{Background}
+AlphaZero \cite{AlphaZero} takes a turn from its direct predecessors to present a general game AI framework.
+A central design choice of AlphaZero is the lack of domain knowledge embedded in the training 
+scheme. As such, there are just two game agnostic components to the system: the deep neural network and the
+Monte Carlo tree search algorithm. The network $(p,v) = f_{\theta}(s)$
+takes the board state over $T$ time steps as input and outputs $p$, a probability distribution vector
+over the actions to take, and  $v$, the expected outcome of the game from the current state.
+The data used to train this network is generated via self-play aided by the MC tree search, detailed in 
+the methods section below. 
 
 
+One measure of the relative complexities of Chess, Go, and Connect Four is with
+respect to the state space. Van den Herik \cite{VANDENHERIK2002277}  define state space complexity as the number 
+of legal positions reachable from the initial position of the game
+and tabulate this metric for various games. The metrics relevant to this project are reproduced in the table
+below.
 
+\begin{tabular}{ c c }
+        Game & State Space Complexity \\
+        \hline
+        Connect Four & $10^{14}$ \\
+        Chess & $10^{46}$ \\
+        Go & $10^{172}$ \\
+    \end{tabular}
+
+Unlike Chess and Go, Connect Four has been solved via brute force search \cite{ConnectFourComputer} 
+and even via knowledge based methods \cite{ConnectFourKnowledge}. 
 
 \section{Main Text}
 
 
 \subsection{Methods}
-A central design choice of AlphaZero is the lack of domain knowledge embedded in the training 
-scheme. Its goal is to be a general-purpose framework 
-. As such, there are two game agnostic components to the system: the deep neural network and the
-Monte Carlo tree search algorithm. The network $(p,v) = f_{\theta}(s)$
-takes the board state over $T$ time steps as input and outputs $p$, a probability distribution vector
-over the actions to take, and  $v$, the expected outcome of the game from the current state.
-The data used to train this network is generated via self-play aided by the MC tree search. 
+
 Every action in every game is decided by constructing a tree of the action space rooted at 
 the current state. Over a set of
 $n$ trials, the game is advanced by traversing the tree along the path of the highest
@@ -104,7 +124,7 @@ The neural network used in this paper is very shallow in comparison to that used
 as the state and action space is so reduced. There are just three convolutional layers before
 the net splits off itno its policy and value heads. Each head has an additional convolutional 
 layer followed by a fully connected linear layer. The Adagrad optimizer was chosen with an
-initial learning rate of $10^{-3}$. 
+initial learning rate on the order of $10^{-3}$. 
 The loss function used for parameter optimization is the sum 
 over mean squared error and cross entropy losses: $L = (z-v)^2 - \pi^T \log p$.
 With such a small network, the real bottleneck in training time was the self-play 
@@ -132,8 +152,8 @@ The results of this stage are contained in Figure 1 and Table 1.
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.5]{../NetworkNoNetwork_policy.jpg}\includegraphics[scale=0.5]{../NetworkNoNetwork_val.jpg}
-    \caption{Loss over time comparison. What looks like superior convergence for the network design does not correspond 
-    with better validation metrics.}
+    \caption{Loss over time comparison. What looks like superior convergence for the network design does not yield 
+     better validation metrics.}
 \end{figure}
 
 \begin{table}[ht]
@@ -158,46 +178,58 @@ The results of this stage are contained in Figure 1 and Table 1.
 In the baseline experiments, 400 rounds of Monte Carlo trials are used at each 
 action step. While this is half of what is used in AlphaZero, the question could
 be asked whether 100 rollouts, or even just 25, are sufficient enough to capture
-the ideal action to take.
+the ideal action to take. Performance metrics in Table 2 support the intuition behind
+scaling the number of simulations down to the square of the number of possible moves,
+since on average \textbf{CITE ME} there are 35 possible moves in a state of chess, 
+and $35^2 \sim 800$ is the cited number of simulations used in AlphaZero. We confirm
+that there is a lower limit before performance degrades in the final column of Table 2. 
 
+
+\begin{table}[ht]
+    \caption{}
 \begin{center}
-    \begin{tabular}{||c c c c||} 
+    \begin{tabular}{||c c c c c||} 
     \hline
-     & 400 & 100 & 25 \\ [0.5ex] 
+     & 400 & 100 & 25 & 5 \\ [0.5ex] 
     \hline\hline
-    Win rate v. MCTS & 0.838 & 0.834 & 0.86 \\ 
+    Win rate v. MCTS & 0.838 & 0.834 & 0.86 & 0.646\\ 
     \hline
-    Draw rate v. MCTS & 0.034 & 0.038 & 0.034 \\
+    Draw rate v. MCTS & 0.034 & 0.038 & 0.034 & 0.07\\
     \hline
-    Win rate v. Random &  0.518 & 0.509 & 0.532 \\
+    Win rate v. Random &  0.518 & 0.509 & 0.532 &0.47\\
     \hline
-    Draw rate v. Random & 0.103 & 0.1046 & 0.106 \\
+    Draw rate v. Random & 0.103 & 0.1046 & 0.106 &0.1\\
     \hline
    \end{tabular}
    \end{center}
+\end{table}
 
 % Conjecturing / Data about the number of simulations per step 
 
 So far, the number of timesteps of history provided in a training image has been $T=1$. 
-The next set of experiments investigated whether including more history would yields
-better outcomes. $T=5$ and $T=10$ were chosen. The data suggests that 
+The next set of experiments investigated whether including more history would improve
+outcomes. $T=5$ and $T=10$ were chosen. The data suggests that all other paramaters held
+constant, no signficant change in performance is observed. Therefore the decision to only use
+the state of the board at time t is retroactively justified.
 
-
+\begin{table}[ht]
+    \caption{}
 \begin{center}
     \begin{tabular}{||c c c c||} 
     \hline
      & T=1 & T=5 & T=10 \\ [0.5ex] 
     \hline\hline
-    Win rate v. MCTS & 6 & 87837 & 787 \\ 
+    Win rate v. MCTS & 0.834  & 0.775 & 0.762 \\ 
     \hline
-    Draw rate v. MCTS & 7 & 78 & 5415 \\
+    Draw rate v. MCTS &  0.038  & 0.056 & 0.068 \\
     \hline
-    Win rate v. Random & 545 & 778 & 7507 \\
+    Win rate v. Random &  0.509 & 0.506 & 0.508\\
     \hline
-    Draw rate v. Random & 545 & 18744 & 7560 \\
+    Draw rate v. Random & 0.1046 & 0.114 & 0.102 \\
     \hline
    \end{tabular}
    \end{center}
+\end{table}
 % Conjecturing / Data about the number of time steps 
 
 % Conjecturing / Data with increasing board size
@@ -218,12 +250,9 @@ better outcomes. $T=5$ and $T=10$ were chosen. The data suggests that
 %\acks{ }
 
 
-\section {References}
 
 \newpage
 
-\appendix
-\section*{Appendix A.}
 
 \vskip 0.2in
 \bibliographystyle{plain}
@@ -233,3 +262,5 @@ better outcomes. $T=5$ and $T=10$ were chosen. The data suggests that
 
 
 
+\appendix
+\section*{Appendix A.}

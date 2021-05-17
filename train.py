@@ -9,7 +9,7 @@ from torch import nn
 
 from evaluate_net import eval_network,eval_network_v_mcts, eval_network_v_random
 
-batchSize =  512
+batchSize =512
 width = 7
 height = 6
 
@@ -100,7 +100,7 @@ def run():
     T = 1
     device ='cuda'
     model = PolicyValueNet(width, height,2*T)
-    model.load_state_dict(torch.load("testing.pth",map_location=device))
+    model.load_state_dict(torch.load("realboard.pth",map_location=device))
 
     #optimizer = optim.SGD(model.parameters(), lr=2e-2, momentum=0.9,weight_decay=1e-4)
     #optimizer = optim.SGD(model.parameters(), lr=2e-1 )
@@ -110,10 +110,9 @@ def run():
     optimizer = optim.Adagrad(model.parameters(), lr=4e-3)
 
     batchidx = 0
-    useNetwork = True
-    batchidx=39
-    while batchidx < 100:
-        if batchidx == 25:
+    useNetwork = False
+    while batchidx < 300:
+        if batchidx == 100:
            useNetwork = True
         model.eval()
         print("Simulating  games")
@@ -121,12 +120,12 @@ def run():
         print("Training")
         model.train()
         model,optimizer = train(states,targets,model,optimizer,T)
-        if batchidx % 10 == 0:
-            validate(model, T, width)
+        #if batchidx % 10 == 0:
+        #    validate(model, T, width)
         #scheduler.step()
         #print(f"Learning rate: {scheduler.get_last_lr()}")
         print(f"Saving batch {batchidx}")
-        torch.save(model.state_dict(), "testing.pth")
+        torch.save(model.state_dict(), "realboard.pth")
         batchidx +=1
 
 if __name__ == '__main__':

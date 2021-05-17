@@ -191,7 +191,7 @@ class MCTS():
         root, val = self.expand_node(root, game, network, useNetwork,T)
 
         root = self.add_exploration_noise(root)
-        for _ in range(25):
+        for _ in range(50):
             node = root
             trial = game.clone()
 
