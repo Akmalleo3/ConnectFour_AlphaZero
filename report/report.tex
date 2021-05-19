@@ -39,12 +39,15 @@
 
 \author{\name Andrea Malleo \email am101@nyu.edu \\}
 
+\maketitle
 
 \begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
 %~\cite{chow:68}
 In this paper we scale down the framework of AlphaZero,
 investigating whether the simpler game of Connect Four can be solved with a commensurate
-reduction in model size and compute time. 
+reduction in model size and compute time. In the end it is clear that the expectations 
+for training time reduction were set too high, and more dedicated optimization of certain parameters
+would be necessary to better replicate the results. 
 \end{abstract}
 
 %\begin{keywords}
@@ -52,26 +55,29 @@ reduction in model size and compute time.
 %\end{keywords}
  
 \section{Introduction}
-General game playing \cite{GeneralGamePlay} is concerned with unspecialized AI systems
-capable of learning to play many different types of games well. 
+General game playing %\cite{GeneralGamePlay}
+ is concerned with unspecialized AI systems
+capable of learning to play many different types of games well. Presented here is a reimplementation of the AlphaZero \cite{AlphaZero}method of 
+mastering games through reinforcement learning. This method achieved world class performance for 
+the games of chess, Go, and shogi.  The sheer magnitude of the resources and time taken to achieve this feat 
+is striking, 
+but perhaps it just matches the complexity of the problems beings solved. Here, we adapt the framework to Connect Four.
+The key questions are how instrinsic to success is this scale, and how general purpose does this method turn out to be.
 
-Presented here is a reimplementation of the AlphaZero method of 
-mastering games through reinforcement learning. This method is adapted to 
-the toy problem of Connect Four. Connect Four is particularly simple. There are only
-as many legal moves as columns on the board, and the maximum of number of moves 
-is limited to the amount of squares on the board. 
 
 \section{Background}
-AlphaZero \cite{AlphaZero} takes a turn from its direct predecessors to present a general game AI framework.
-A central design choice of AlphaZero is the lack of domain knowledge embedded in the training 
+A central design choice in AlphaZero 
+ is the lack of domain knowledge embedded in the training 
 scheme. As such, there are just two game agnostic components to the system: the deep neural network and the
 Monte Carlo tree search algorithm. The network $(p,v) = f_{\theta}(s)$
-takes the board state over $T$ time steps as input and outputs $p$, a probability distribution vector
+takes the board state over $T$ time steps as input. The outputs are $p$, a probability distribution vector
 over the actions to take, and  $v$, the expected outcome of the game from the current state.
-The data used to train this network is generated via self-play aided by the MC tree search, detailed in 
-the methods section below. 
 
 
+Connect Four is particularly simple in comparison to the games on which
+AlphaZero is benchmarked. In Connect Four, there are only
+as many legal moves as columns, and the maximum of number of turns 
+is limited to the amount of squares on the board. 
 One measure of the relative complexities of Chess, Go, and Connect Four is with
 respect to the state space. Van den Herik \cite{VANDENHERIK2002277}  define state space complexity as the number 
 of legal positions reachable from the initial position of the game
@@ -87,23 +93,30 @@ below.
     \end{tabular}
 
 Unlike Chess and Go, Connect Four has been solved via brute force search \cite{ConnectFourComputer} 
-and even via knowledge based methods \cite{ConnectFourKnowledge}. 
+and even via knowledge based methods \cite{ConnectFourKnowledge}. The goal here is to demonstrate
+adaptability of this variant of Deep Q learning. The tendency for Deep Q learning to be unstable is 
+well known and attributed to correlations between the training samples and the fact that the target 
+values are themselves functions of the parameters of the network being optimized. These concerns 
+are addressed here as they usually are. Data samples are buffered over a batch of games, essentially 
+freezing our Q network ($f_{\theta}$)
+while it directs our policy during game play, and are randomly sampled from this batch to produce a
+less correlated training data set.
+
 
 \section{Main Text}
 
 
 \subsection{Methods}
-
+The data used to train this network is generated via self-play aided by the Monte Carlo tree search.
 Every action in every game is decided by constructing a tree of the action space rooted at 
-the current state. Over a set of
+the current state. Repeated over a set of
 $n$ trials, the game is advanced by traversing the tree along the path of the highest
-value states as determined thus far. If a leaf is reached before the game has ended, i.e. the trial
-has reached a state not explored in any of the previous trials, a scheme to complete the game must be chosen.
+value states as determined thus far. If a leaf is reached before the game has ended, a scheme to complete the game must be chosen.
 In classic Monte Carlo tree search, moves are chosen at random until the game has a resolution. 
-The method used in the AlphaZero paper calls for evaluation of the neural network in its current state
+The method used in the AlphaZero paper calls for evaluation of the neural network at this leaf
 which will return an expected outcome of the game right away.
- \textbf{The implications of the choice of playout or evaluation
-will be discussed in a later section}
+The implications of the choice of playout or evaluation
+will be discussed in later sections.
 Once a score has been obtained, all of the states along the path have their total values updated.
 Note that at each level of the tree, the current player switches. Thus, the score of +1 for a win
 will be propagated up to every other layer in the tree, while the score of -1 for a loss will be added
@@ -122,32 +135,36 @@ also have an game outcome target, $z$.
  
 The neural network used in this paper is very shallow in comparison to that used in AlphaZero, 
 as the state and action space is so reduced. There are just three convolutional layers before
-the net splits off itno its policy and value heads. Each head has an additional convolutional 
+the net splits off into its policy and value heads. Each head has an additional convolutional 
 layer followed by a fully connected linear layer. The Adagrad optimizer was chosen with an
 initial learning rate on the order of $10^{-3}$. 
 The loss function used for parameter optimization is the sum 
-over mean squared error and cross entropy losses: $L = (z-v)^2 - \pi^T \log p$.
+over mean squared error and cross entropy losses: \begin{flalign}
+    L = (z-v)^2 - \pi^T \log p
+\end{flalign}
 With such a small network, the real bottleneck in training time was the self-play 
-time for generating the data. This implementation parallelized gameplay across five python
-processes, which approached the maximum capacity for memory on the author's computer. Due to
-this limitation, only 40 games were played per training round, generating approximately 800 data points. 
-In effort to reduce the correlation between the training points, only 200 were uniformly sampled
-from these as training data. In order to complete 50 rounds of training, between one and two
-hours of time was needed, depending on whether the Monte Carlo simulation used random
-playout or network evaluation to finish the trials.
+for generating the data. This implementation parallelized gameplay across five python
+processes, which approached the maximum capacity for memory on the author's computer.
+
+%For the first three experiments, 
+%In effort to reduce the correlation between the training points, were uniformly sampled
+%from these as training data. In order to complete 50 rounds of training, between one and two
+%hours of time was needed, depending on whether the Monte Carlo simulation used random
+%playout or network evaluation to finish the trials.
 
 
 \subsection{Experiments}
-The first goal of the project was to get a baseline reimplementation working. 
 The models were evaluated against two Connect Four players. The first, referred to
 as the MCTS player, makes actions using the same MC simulation method detailed above.
 The second player, referred to as the random player, takes actions by sampling 
 from a uniform probability over all of the columns on the board. 
-Three versions of the framework were compared, one in which the network is used
+In the first experiment, three versions of the framework were compared, 
+one in which the Q network is used
 as intended for outcome evaluation during simulations, a second where the random 
-playout method is used to get outcomes for the trials, and a third combining 
-the two approaches, switching from no network to network halfway through training time.
-The results of this stage are contained in Figure 1 and Table 1.
+playout method is used instead, and a third combining 
+the two approaches, switching to network use halfway through training time.
+The results of this stage are contained in Figure 1 and Table 1. All experimental settings
+are reported in Table 4 in the Appendix.
 
 \begin{figure}[h]
     \centering
@@ -175,12 +192,54 @@ The results of this stage are contained in Figure 1 and Table 1.
    \end{center}
 \end{table}
 
+There are several takeaways from the data. First is that the convergence of the model
+set up as prescribed in AlphaZero looks to be faster than setups using random playout
+for state value estimations. However when it comes to performance against the MCTS and Random players,
+this approach does no better. In fact in certain instances \footnote{During the presentation I reported
+that the MCTS network was increasing probability of a column as the number of plays in that column increased.
+This was observed at the time. For the settings of these experiements specifically, all models output almost
+uniform probabilities. The version of the model produced in the final experiment does exhibit this strategy.} , the No Network model demonstrated a
+discernible strategy whereas the action distributions $p$ observed for the network model were close to equal probability for each column at every step of the game. 
+The Network model does learn to assign 0 probability to a column it or the opponent just closed out on the
+previous turn, however at future timesteps it often reverts back to uniform distribution.\\ 
+An explanation for this trouble is possibly rooted in the loss function (1). The network is provided
+target distributions $\pi$ which are the visit probabilities of the direct descendants 
+of the root state after a full MC tree search. As noted previously, the use of Q makes for a  non-stationary target $\pi$,
+and gradient methods of this approach are not
+guaranteed to converge. It is worth noting here that in AlphaGoZero \cite{AlphaGoZero}, the prior work of AlphaZero,
+the value estimation is derived by combining network evaluation and rollout outcomes. \\
+However, a second related observation to make is that the Random player performs better than the MCTS player.
+This speaks to a fundamental flaw in the search algorithm.
+
+Let us more closely examine how exactly 
+actions are chosen. From \cite{Supplementary}, an action from state $s$
+at time $t$ is selected  as \begin{flalign}
+    a &= \arg \max_a (Q(s_t,a) + U(s_t,a))\\
+    &\text{Where Q is state value estimation from $f_{\theta}$}\\
+    U &= C(s) P(s,a) \frac{\sqrt{N(s)}}{1 +  N(s,a)}\\
+    &\text{P(s,a) is the prior probability of taking action a in state s}\\
+    &\text{N(s) is parent visit count}\\
+    &\text{N(s,a) is node visit count }
+\end{flalign}
+
+ The lead suspect is the value for $C$ in the $U$ term, 
+influencing which action is chosen, and specifically controlling the rate of exploration.
+This is a reported parameter taken directly from the Alpha Zero paper and very likely needs to be tuned 
+to Connect Four specifically. Searching for the optimal C(s) is a critical part of future work.\\
+Finally, a look at the graph of expected game outcome loss shows little progress over time.
+One may wonder whether the relative simplicity of Connect Four hinders the strength 
+of state as a signal for expected outcome. The board state before a win can 
+be identical to the board state before a loss, and this may happen more often than it does not.
+
+
 In the baseline experiments, 400 rounds of Monte Carlo trials are used at each 
 action step. While this is half of what is used in AlphaZero, the question could
-be asked whether 100 rollouts, or even just 25, are sufficient enough to capture
-the ideal action to take. Performance metrics in Table 2 support the intuition behind
-scaling the number of simulations down to the square of the number of possible moves,
-since on average \textbf{CITE ME} there are 35 possible moves in a state of chess, 
+be asked how many are necessary to capture the ideal action to take when 
+there are only five choices on a 5x5 board. Performance metrics in Table 2 
+show that 25 seems sufficient, and support a rough
+scaling heuristic of the number of simulations 
+to the square of the number of possible moves,
+since on average \cite{thirtyFive} there are 35 possible moves in a state of chess, 
 and $35^2 \sim 800$ is the cited number of simulations used in AlphaZero. We confirm
 that there is a lower limit before performance degrades in the final column of Table 2. 
 
@@ -209,7 +268,7 @@ that there is a lower limit before performance degrades in the final column of T
 So far, the number of timesteps of history provided in a training image has been $T=1$. 
 The next set of experiments investigated whether including more history would improve
 outcomes. $T=5$ and $T=10$ were chosen. The data suggests that all other paramaters held
-constant, no signficant change in performance is observed. Therefore the decision to only use
+constant, no positive change in performance is observed. Therefore the decision to only use
 the state of the board at time t is retroactively justified.
 
 \begin{table}[ht]
@@ -230,6 +289,12 @@ the state of the board at time t is retroactively justified.
    \end{tabular}
    \end{center}
 \end{table}
+
+With takeaways from each experiment determining the settings for the final model (see Table 4),
+the batch size and number of batches was increased substantially, and the network
+was trained on a game sized board. 
+
+
 % Conjecturing / Data about the number of time steps 
 
 % Conjecturing / Data with increasing board size
@@ -237,7 +302,13 @@ the state of the board at time t is retroactively justified.
 % graph action distributions as the state changes
 
 
-\subsection{Discussion}
+\subsection{Conclusion}
+AlphaZero was trained for 3.1 million steps over a period of 40 days \cite{AlphaZero}. 
+The implementation can be found at https://github.com/Akmalleo3/ConnectFour\_AlphaZero.
+Both  \cite{Supplementary} and \cite{refImplementation} 
+reference implementations were 
+used.
+
 %{\noindent \em Remainder omitted in this sample. See http://www.jmlr.org/papers/ for full paper.}
 % use of classical vs. neural network evaluation
 
@@ -249,18 +320,39 @@ the state of the board at time t is retroactively justified.
 % Acknowledgements should go at the end, before appendices and references
 %\acks{ }
 
-
-
-\newpage
-
-
 \vskip 0.2in
 \bibliographystyle{plain}
 \bibliography{sample}
-\end{document}
-
-
-
 
 \appendix
 \section*{Appendix A.}
+\begin{table}[ht]
+    \caption{Hyperparameters}
+    \vspace{.3in}
+\begin{center}
+    \begin{tabular}{||c ||c |c |c |c|c|c|c }
+             & Games & Batch Size & T & M & Batches & Board Size &Network\\
+             \hline
+            Experiment 1&&&&& \\
+            1 & 40 & 200 & 1 & 400 & 50 & 5x5 & Yes\\
+            2 & 40 & 200 & 1 & 400  & 50 & 5x5 & No\\
+            3 & 40 & 200 & 1 & 400 &  50 & 5x5 &Half\\
+            \hline
+            Experiment 2&&& && \\
+            1 & 40 & 200& 1 & 400 &  50 & 5x5 &Half\\
+            2 & 40 & 200& 1 & 100 &  50 & 5x5 &Half\\
+            3 & 40 & 200& 1 & 25 &  50 & 5x5 &Half\\
+            4 & 40 & 200& 1 & 5 &  50 & 5x5 &Half\\
+            \hline
+            Experiment 3&&&&& \\
+            1 & 40 & 200& 1 & 25 &  50 & 5x5 &Half\\
+            2 & 40 & 200 & 5 & 25 &  50 & 5x5 &Half\\
+            3 & 40 & 200 & 10 & 25 & 50& 5x5 &Half\\
+            \hline
+            Experiment 4/Best:&&&&& \\
+            & 80 & 2048 & 1 & 50 & 150& 6x7 & Half
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\end{document}

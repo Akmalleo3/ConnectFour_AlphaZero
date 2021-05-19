@@ -31,7 +31,7 @@ def collectGameDataParallel(network, useNetwork,T, width, height):
     totalGames = 0
     game_images = []
     game_targets = []
-    while totalGames < 40:
+    while totalGames < 80:
         images = Queue()
         targets = Queue()
         ngames = 5
@@ -58,7 +58,7 @@ def collectGameDataParallel(network, useNetwork,T, width, height):
         totalGames += ngames
     flattened_images = list(itertools.chain.from_iterable(game_images))
     flattened_targets = list(itertools.chain.from_iterable(game_targets))
-    batchSize = min(len(flattened_images), 200)
+    batchSize = min(len(flattened_images), 2048)
     sample_indices = numpy.random.choice(range(len(flattened_images)),batchSize)
     sample_images = [flattened_images[i] for i in sample_indices]
     sample_targets = [flattened_targets[i] for i in sample_indices]
@@ -100,19 +100,19 @@ def run():
     T = 1
     device ='cuda'
     model = PolicyValueNet(width, height,2*T)
-    model.load_state_dict(torch.load("realboard.pth",map_location=device))
+    model.load_state_dict(torch.load("testing.pth",map_location=device))
 
     #optimizer = optim.SGD(model.parameters(), lr=2e-2, momentum=0.9,weight_decay=1e-4)
     #optimizer = optim.SGD(model.parameters(), lr=2e-1 )
     #scheduler = optim.lr_scheduler.MultiStepLR(optimizer,[20,60])
     model.cuda()
     model.share_memory()
-    optimizer = optim.Adagrad(model.parameters(), lr=4e-3)
+    optimizer = optim.Adagrad(model.parameters(), lr=1e-3)
 
-    batchidx = 0
-    useNetwork = False
-    while batchidx < 300:
-        if batchidx == 100:
+    batchidx = 85
+    useNetwork = True
+    while batchidx < 401:
+        if batchidx == 200:
            useNetwork = True
         model.eval()
         print("Simulating  games")
@@ -120,12 +120,12 @@ def run():
         print("Training")
         model.train()
         model,optimizer = train(states,targets,model,optimizer,T)
-        #if batchidx % 10 == 0:
-        #    validate(model, T, width)
+        if batchidx % 40 == 0 and batchidx != 0:
+            validate(model, T, width)
         #scheduler.step()
         #print(f"Learning rate: {scheduler.get_last_lr()}")
         print(f"Saving batch {batchidx}")
-        torch.save(model.state_dict(), "realboard.pth")
+        torch.save(model.state_dict(), "testing.pth")
         batchidx +=1
 
 if __name__ == '__main__':

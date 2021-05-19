@@ -77,13 +77,24 @@ def network_v_random(network,T, width, height,doDraw=False):
 
     return 0
 
-def random_v_random(nothing, nobody,width):
-    game = ConnectFour(width,width,True)
+def random_v_random(nothing, nobody,width,height):
+    game = ConnectFour(width,height,True)
     while(not game.gameTie()):
         game = random_move(game)
         if game.gameWinner():
             return game.gameWinner()
     return 0
+
+def random_v_mcts(nowork,T,width,height,doDraw=False):
+    game = ConnectFour(width, height,True, doDraw, "testGame1")
+    while not game.gameTie():
+        if game.player() == 1:
+            game = mcts_move(game,T)  
+        else:
+            game = random_move(game)
+        if game.gameWinner():
+            return game.gameWinner()
+    return 0    
 
 def network_v_mcts(model, T, width, height, doDraw=False):
     game = ConnectFour(width, height,True, doDraw, "testGame1")
@@ -97,7 +108,7 @@ def network_v_mcts(model, T, width, height, doDraw=False):
     return 0
 
 def eval_network(player_scheme, network,T,width,height):
-    n_trials = 5000
+    n_trials = 500
     n_wins = 0
     n_draws = 0
     for _ in range(n_trials):
@@ -113,7 +124,7 @@ def eval_network(player_scheme, network,T,width,height):
     return winrate, drawrate
 
 
-def eval_network_v_random(network=None,network_path="./realboard.pth"):
+def eval_network_v_random(network=None,network_path="./testing.pth"):
     print("Player 1 trained net: ")
     print("Player 2 Random: ")
     T = 1
@@ -128,7 +139,7 @@ def eval_network_v_random(network=None,network_path="./realboard.pth"):
 
 #eval_network_v_random()
 
-def eval_network_v_mcts(network=None,network_path="./realboard.pth"):
+def eval_network_v_mcts(network=None,network_path="./testing.pth"):
     print("Player 1 trained net: ")
     print("Player 2 MCTS: ")
     T = 1
@@ -152,15 +163,17 @@ def one_game():
     network.eval()
     winner = network_v_random(network,T,7,6,True)
     print(f"Player {winner} wins!")
-    #watchGame("testGame1")
+watchGame("testGame1")
 
-one_game()
+#one_game()
 
 def eval_random_v_random():
-    eval_network(random_v_random,{},0,5,5)
+    eval_network(random_v_random,{},1,5,5)
 
 #eval_random_v_random()
+    
+def eval_random_v_mcts():
+    eval_network(random_v_mcts, {}, 1,5,5)
 
-def eval_mcts_v_mcts():
-    pass 
+#eval_random_v_mcts()
 

@@ -224,16 +224,9 @@
 \def\@maketitle{\vbox{\hsize\textwidth
  \linewidth\hsize \vskip \beforetitskip
  {\begin{center} \Large\bf \@title \par \end{center}} \vskip \aftertitskip
- {\def\and{\unskip\enspace{\rm and}\enspace}%
-  \def\addr{\small\it}%
-  \def\email{\hfill\small\sc}%
+ {\def\email{\hfill\small\sc}%
   \def\name{\normalsize\bf}%
-  \def\AND{\@endauthor\rm\hss \vskip \interauthorskip \@startauthor}
   \@startauthor \@author \@endauthor}
-
-  \vskip \aftermaketitskip
-  \noindent \@starteditor \@editor \@endeditor
-  \vskip \aftermaketitskip
 }}
 
 \def\editor#1{\gdef\@editor{#1}}
