@@ -100,7 +100,7 @@ def run():
     T = 1
     device ='cuda'
     model = PolicyValueNet(width, height,2*T)
-    model.load_state_dict(torch.load("testing.pth",map_location=device))
+    #model.load_state_dict(torch.load("testing.pth",map_location=device))
 
     #optimizer = optim.SGD(model.parameters(), lr=2e-2, momentum=0.9,weight_decay=1e-4)
     #optimizer = optim.SGD(model.parameters(), lr=2e-1 )
@@ -109,8 +109,8 @@ def run():
     model.share_memory()
     optimizer = optim.Adagrad(model.parameters(), lr=1e-3)
 
-    batchidx = 85
-    useNetwork = True
+    batchidx =0
+    useNetwork = False
     while batchidx < 401:
         if batchidx == 200:
            useNetwork = True
