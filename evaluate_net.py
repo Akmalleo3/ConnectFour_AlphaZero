@@ -4,7 +4,7 @@ from connectFour import ConnectFour, historyToImage
 from numpy import random as numpy_random
 import random 
 import os
-from mcts import renormalize
+from mcts import MCTS, renormalize
 import time
 
 cuda = torch.device('cuda')
@@ -22,6 +22,7 @@ def watchGame(gameDir):
         time.sleep(2)
         os.system('clear')
 #watchGame("testGame1")
+#watchGame("exampleWin1")
 
 
 def model_move(model,game, T):
@@ -51,8 +52,21 @@ def random_move(game):
         moved = game.move(actions[move])
     return game
 
-def network_v_random(network,T, width, doDraw=False):
-    game = ConnectFour(width,width,True,doDraw,"testGame1")
+
+def mcts_move(game, T):
+    mcts = MCTS()
+
+    root = mcts.run_sim(game,None,False,T)
+    game = mcts.take_most_visited_action(root,game)
+    #root.print()
+    #for _,child in root.children.items():
+    #    child.print()
+        
+    return game
+
+
+def network_v_random(network,T, width, height,doDraw=False):
+    game = ConnectFour(width,height,True,doDraw,"testGame1")
     while(not game.gameTie()):
         if game.player() == 2:
            game = random_move(game)
@@ -63,21 +77,42 @@ def network_v_random(network,T, width, doDraw=False):
 
     return 0
 
-def random_v_random(nothing, nobody,width):
-    game = ConnectFour(width,width,True)
+def random_v_random(nothing, nobody,width,height):
+    game = ConnectFour(width,height,True)
     while(not game.gameTie()):
         game = random_move(game)
         if game.gameWinner():
             return game.gameWinner()
     return 0
 
+def random_v_mcts(nowork,T,width,height,doDraw=False):
+    game = ConnectFour(width, height,True, doDraw, "testGame1")
+    while not game.gameTie():
+        if game.player() == 1:
+            game = mcts_move(game,T)  
+        else:
+            game = random_move(game)
+        if game.gameWinner():
+            return game.gameWinner()
+    return 0    
 
-def eval_network(player_scheme, network,T,width):
-    n_trials = 100
+def network_v_mcts(model, T, width, height, doDraw=False):
+    game = ConnectFour(width, height,True, doDraw, "testGame1")
+    while not game.gameTie():
+        if game.player() == 2:
+            game = mcts_move(game,T)  
+        else:
+            game = model_move(model, game, T)
+        if game.gameWinner():
+            return game.gameWinner()
+    return 0
+
+def eval_network(player_scheme, network,T,width,height):
+    n_trials = 500
     n_wins = 0
     n_draws = 0
     for _ in range(n_trials):
-        winner = player_scheme(network,T,width)
+        winner = player_scheme(network,T,width,height)
         if winner == 1: 
             n_wins += 1
         elif winner == 0:
@@ -89,41 +124,56 @@ def eval_network(player_scheme, network,T,width):
     return winrate, drawrate
 
 
-def eval_network_v_random():
+def eval_network_v_random(network=None,network_path="./testing.pth"):
     print("Player 1 trained net: ")
+    print("Player 2 Random: ")
     T = 1
     device = 'cuda'
-    network = PolicyValueNet(5,5,2*T)
-    network.load_state_dict(torch.load("test_longhaul3.pth",map_location=device))
+    if network == None:
+        network = PolicyValueNet(7,6,2*T)
+        network.load_state_dict(torch.load(network_path,map_location=device))
     network.cuda()
     network.eval()
-    eval_network(network_v_random,network,T,5)
+    eval_network(network_v_random,network,T,7,6)
 
 
 #eval_network_v_random()
+
+def eval_network_v_mcts(network=None,network_path="./testing.pth"):
+    print("Player 1 trained net: ")
+    print("Player 2 MCTS: ")
+    T = 1
+    device = 'cuda'
+    if network == None:
+        network = PolicyValueNet(7,6,2*T)
+        network.load_state_dict(torch.load(network_path,map_location=device))
+    network.cuda()
+    network.eval()
+    eval_network(network_v_mcts,network,T,7,6)
+
+#eval_network_v_mcts()
 
 def one_game():
     print("Player 1 trained net: ")
     T = 1
     device = 'cuda'
-    network = PolicyValueNet(5,5,2*T)
-    network.load_state_dict(torch.load("test_longhaul3.pth",map_location=device))
+    network = PolicyValueNet(7,6,2*T)
+    network.load_state_dict(torch.load("./realboard.pth",map_location=device))
     network.cuda()
     network.eval()
-    winner = network_v_random(network,T,5,True)
+    winner = network_v_random(network,T,7,6,True)
     print(f"Player {winner} wins!")
-    #watchGame("testGame1")
+watchGame("testGame1")
 
 #one_game()
 
 def eval_random_v_random():
-    eval_network(random_v_random,{},0,5)
+    eval_network(random_v_random,{},1,5,5)
 
 #eval_random_v_random()
+    
+def eval_random_v_mcts():
+    eval_network(random_v_mcts, {}, 1,5,5)
 
-def eval_network_v_mcts():
-    pass
-
-def eval_mcts_v_mcts():
-    pass 
+#eval_random_v_mcts()
 

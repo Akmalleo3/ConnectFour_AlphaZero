@@ -1,0 +1,2182 @@
+policy loss: 1.9433449506759644
+val loss: 1.0038923025131226
+total loss: 2.947237253189087
+Saving batch 0
+Simulating  games
+Training
+policy loss: 1.9433972835540771
+val loss: 1.00687837600708
+total loss: 2.9502756595611572
+Saving batch 1
+Simulating  games
+Training
+policy loss: 1.9428739547729492
+val loss: 0.9529200792312622
+total loss: 2.895793914794922
+Saving batch 2
+Simulating  games
+Training
+policy loss: 1.946442723274231
+val loss: 1.002113699913025
+total loss: 2.948556423187256
+Saving batch 3
+Simulating  games
+Training
+policy loss: 1.9436038732528687
+val loss: 0.9725637435913086
+total loss: 2.916167736053467
+Saving batch 4
+Simulating  games
+Training
+policy loss: 1.9461103677749634
+val loss: 0.9985577464103699
+total loss: 2.9446680545806885
+Saving batch 5
+Simulating  games
+Training
+policy loss: 1.9444952011108398
+val loss: 1.0018794536590576
+total loss: 2.9463746547698975
+Saving batch 6
+Simulating  games
+Training
+policy loss: 1.940507411956787
+val loss: 1.0071055889129639
+total loss: 2.947613000869751
+Saving batch 7
+Simulating  games
+Training
+policy loss: 1.9462724924087524
+val loss: 1.0044310092926025
+total loss: 2.9507036209106445
+Saving batch 8
+Simulating  games
+Training
+policy loss: 1.943404197692871
+val loss: 0.9487093687057495
+total loss: 2.89211368560791
+Saving batch 9
+Simulating  games
+Training
+policy loss: 1.9439561367034912
+val loss: 0.9986997246742249
+total loss: 2.9426558017730713
+Saving batch 10
+Simulating  games
+Training
+policy loss: 1.940926432609558
+val loss: 1.007875919342041
+total loss: 2.9488024711608887
+Saving batch 11
+Simulating  games
+Training
+policy loss: 1.9459136724472046
+val loss: 0.9987758994102478
+total loss: 2.9446895122528076
+Saving batch 12
+Simulating  games
+Training
+policy loss: 1.941973090171814
+val loss: 1.008362054824829
+total loss: 2.9503350257873535
+Saving batch 13
+Simulating  games
+Training
+policy loss: 1.9447530508041382
+val loss: 1.0018361806869507
+total loss: 2.946589231491089
+Saving batch 14
+Simulating  games
+Training
+policy loss: 1.9390596151351929
+val loss: 1.0021244287490845
+total loss: 2.9411840438842773
+Saving batch 15
+Simulating  games
+Training
+policy loss: 1.9396307468414307
+val loss: 1.0006452798843384
+total loss: 2.9402761459350586
+Saving batch 16
+Simulating  games
+Training
+policy loss: 1.944659948348999
+val loss: 1.000970482826233
+total loss: 2.9456305503845215
+Saving batch 17
+Simulating  games
+Training
+policy loss: 1.9417474269866943
+val loss: 0.9999439716339111
+total loss: 2.9416913986206055
+Saving batch 18
+Simulating  games
+Training
+policy loss: 1.9427534341812134
+val loss: 0.95126873254776
+total loss: 2.894022226333618
+Saving batch 19
+Simulating  games
+Training
+policy loss: 1.9415758848190308
+val loss: 1.003156304359436
+total loss: 2.944732189178467
+Saving batch 20
+Simulating  games
+Training
+policy loss: 1.9394041299819946
+val loss: 1.0008286237716675
+total loss: 2.940232753753662
+Saving batch 21
+Simulating  games
+Training
+policy loss: 1.94410240650177
+val loss: 1.0046285390853882
+total loss: 2.948730945587158
+Saving batch 22
+Simulating  games
+Training
+policy loss: 1.934883952140808
+val loss: 1.000967025756836
+total loss: 2.9358510971069336
+Saving batch 23
+Simulating  games
+Training
+policy loss: 1.944730520248413
+val loss: 0.999907910823822
+total loss: 2.94463849067688
+Saving batch 24
+Simulating  games
+Training
+policy loss: 1.9433773756027222
+val loss: 1.0001635551452637
+total loss: 2.9435410499572754
+Saving batch 25
+Simulating  games
+Training
+policy loss: 1.948564887046814
+val loss: 1.0021892786026
+total loss: 2.950754165649414
+Saving batch 26
+Simulating  games
+Training
+policy loss: 1.9426653385162354
+val loss: 1.002986192703247
+total loss: 2.9456515312194824
+Saving batch 27
+Simulating  games
+Training
+policy loss: 1.9474036693572998
+val loss: 1.0005446672439575
+total loss: 2.947948455810547
+Saving batch 28
+Simulating  games
+Training
+policy loss: 1.9447143077850342
+val loss: 1.0011595487594604
+total loss: 2.945873737335205
+Saving batch 29
+Simulating  games
+Training
+policy loss: 1.9395300149917603
+val loss: 1.0002986192703247
+total loss: 2.939828634262085
+Saving batch 30
+Simulating  games
+Training
+policy loss: 1.9452910423278809
+val loss: 1.0016639232635498
+total loss: 2.9469549655914307
+Saving batch 31
+Simulating  games
+Training
+policy loss: 1.9397518634796143
+val loss: 1.001893401145935
+total loss: 2.9416451454162598
+Saving batch 32
+Simulating  games
+Training
+policy loss: 1.942179560661316
+val loss: 0.9994124174118042
+total loss: 2.94159197807312
+Saving batch 33
+Simulating  games
+Training
+policy loss: 1.9374308586120605
+val loss: 1.0005772113800049
+total loss: 2.9380080699920654
+Saving batch 34
+Simulating  games
+Training
+policy loss: 1.9440339803695679
+val loss: 0.9699034690856934
+total loss: 2.913937568664551
+Saving batch 35
+Simulating  games
+Training
+policy loss: 1.9419329166412354
+val loss: 0.9543335437774658
+total loss: 2.896266460418701
+Saving batch 36
+Simulating  games
+Training
+policy loss: 1.941975712776184
+val loss: 0.9980463981628418
+total loss: 2.9400219917297363
+Saving batch 37
+Simulating  games
+Training
+policy loss: 1.9424854516983032
+val loss: 0.9442489147186279
+total loss: 2.8867344856262207
+Saving batch 38
+Simulating  games
+Training
+policy loss: 1.9338499307632446
+val loss: 1.0027756690979004
+total loss: 2.9366254806518555
+Saving batch 39
+Simulating  games
+Training
+policy loss: 1.9346853494644165
+val loss: 0.9995637536048889
+total loss: 2.93424916267395
+Saving batch 40
+Simulating  games
+Training
+policy loss: 1.9486846923828125
+val loss: 1.0009363889694214
+total loss: 2.9496212005615234
+Saving batch 41
+Simulating  games
+Training
+policy loss: 1.9431426525115967
+val loss: 1.0008610486984253
+total loss: 2.9440035820007324
+Saving batch 42
+Simulating  games
+Training
+policy loss: 1.943899154663086
+val loss: 1.0022443532943726
+total loss: 2.946143627166748
+Saving batch 43
+Simulating  games
+Training
+policy loss: 1.943483591079712
+val loss: 0.9590066075325012
+total loss: 2.9024901390075684
+Saving batch 44
+Simulating  games
+Training
+policy loss: 1.935290813446045
+val loss: 1.0032731294631958
+total loss: 2.938563823699951
+Saving batch 45
+Simulating  games
+Training
+policy loss: 1.9430696964263916
+val loss: 0.9399959444999695
+total loss: 2.883065700531006
+Saving batch 46
+Simulating  games
+Training
+policy loss: 1.9382621049880981
+val loss: 0.9975593090057373
+total loss: 2.935821533203125
+Saving batch 47
+Simulating  games
+Training
+policy loss: 1.939024567604065
+val loss: 1.0015314817428589
+total loss: 2.940556049346924
+Saving batch 48
+Simulating  games
+Training
+policy loss: 1.9378271102905273
+val loss: 0.9411545991897583
+total loss: 2.878981590270996
+Saving batch 49
+Simulating  games
+Training
+policy loss: 1.9366427659988403
+val loss: 0.954289436340332
+total loss: 2.890932083129883
+Saving batch 50
+Simulating  games
+Training
+policy loss: 1.9401230812072754
+val loss: 0.9999865293502808
+total loss: 2.9401097297668457
+Saving batch 51
+Simulating  games
+Training
+policy loss: 1.9405077695846558
+val loss: 1.0010119676589966
+total loss: 2.9415197372436523
+Saving batch 52
+Simulating  games
+Training
+policy loss: 1.93803870677948
+val loss: 1.000891923904419
+total loss: 2.9389305114746094
+Saving batch 53
+Simulating  games
+Training
+policy loss: 1.9481213092803955
+val loss: 1.0018662214279175
+total loss: 2.9499874114990234
+Saving batch 54
+Simulating  games
+Training
+policy loss: 1.93779718875885
+val loss: 1.0010957717895508
+total loss: 2.9388928413391113
+Saving batch 55
+Simulating  games
+Training
+policy loss: 1.9389455318450928
+val loss: 1.0012685060501099
+total loss: 2.940214157104492
+Saving batch 56
+Simulating  games
+Training
+policy loss: 1.9416543245315552
+val loss: 1.000043511390686
+total loss: 2.941697835922241
+Saving batch 57
+Simulating  games
+Training
+policy loss: 1.9397579431533813
+val loss: 1.0000935792922974
+total loss: 2.9398515224456787
+Saving batch 58
+Simulating  games
+Training
+policy loss: 1.9365088939666748
+val loss: 0.9991741180419922
+total loss: 2.935683012008667
+Saving batch 59
+Simulating  games
+Training
+policy loss: 1.943520188331604
+val loss: 0.9993287324905396
+total loss: 2.9428489208221436
+Saving batch 60
+Simulating  games
+Training
+policy loss: 1.9407681226730347
+val loss: 1.0013322830200195
+total loss: 2.9421005249023438
+Saving batch 61
+Simulating  games
+Training
+policy loss: 1.9391199350357056
+val loss: 0.9984189867973328
+total loss: 2.9375388622283936
+Saving batch 62
+Simulating  games
+Training
+policy loss: 1.9396722316741943
+val loss: 0.9980711340904236
+total loss: 2.9377434253692627
+Saving batch 63
+Simulating  games
+Training
+policy loss: 1.9334255456924438
+val loss: 0.9621043801307678
+total loss: 2.8955299854278564
+Saving batch 64
+Simulating  games
+Training
+policy loss: 1.9355089664459229
+val loss: 0.9995072484016418
+total loss: 2.93501615524292
+Saving batch 65
+Simulating  games
+Training
+policy loss: 1.940598726272583
+val loss: 1.0011929273605347
+total loss: 2.941791534423828
+Saving batch 66
+Simulating  games
+Training
+policy loss: 1.9308255910873413
+val loss: 1.0009732246398926
+total loss: 2.9317989349365234
+Saving batch 67
+Simulating  games
+Training
+policy loss: 1.9455029964447021
+val loss: 0.9799341559410095
+total loss: 2.9254372119903564
+Saving batch 68
+Simulating  games
+Training
+policy loss: 1.9330718517303467
+val loss: 0.9999363422393799
+total loss: 2.9330081939697266
+Saving batch 69
+Simulating  games
+Training
+policy loss: 1.9332188367843628
+val loss: 0.9999735951423645
+total loss: 2.933192491531372
+Saving batch 70
+Simulating  games
+Training
+policy loss: 1.931915044784546
+val loss: 0.9498069286346436
+total loss: 2.8817219734191895
+Saving batch 71
+Simulating  games
+Training
+policy loss: 1.931365728378296
+val loss: 0.9546406269073486
+total loss: 2.8860063552856445
+Saving batch 72
+Simulating  games
+Training
+policy loss: 1.9373964071273804
+val loss: 0.9549116492271423
+total loss: 2.892307996749878
+Saving batch 73
+Simulating  games
+Training
+policy loss: 1.931823968887329
+val loss: 0.9448676705360413
+total loss: 2.8766915798187256
+Saving batch 74
+Simulating  games
+Training
+policy loss: 1.930780291557312
+val loss: 1.0003020763397217
+total loss: 2.931082248687744
+Saving batch 75
+Simulating  games
+Training
+policy loss: 1.9342248439788818
+val loss: 0.9997567534446716
+total loss: 2.9339816570281982
+Saving batch 76
+Simulating  games
+Training
+policy loss: 1.930555820465088
+val loss: 0.9993894696235657
+total loss: 2.929945230484009
+Saving batch 77
+Simulating  games
+Training
+policy loss: 1.9373093843460083
+val loss: 0.9504460096359253
+total loss: 2.8877553939819336
+Saving batch 78
+Simulating  games
+Training
+policy loss: 1.9258358478546143
+val loss: 0.979945182800293
+total loss: 2.9057810306549072
+Saving batch 79
+Simulating  games
+Training
+policy loss: 1.9427191019058228
+val loss: 1.0007121562957764
+total loss: 2.9434313774108887
+Saving batch 80
+Simulating  games
+Training
+policy loss: 1.9286428689956665
+val loss: 1.0006684064865112
+total loss: 2.9293112754821777
+Saving batch 81
+Simulating  games
+Training
+policy loss: 1.9353485107421875
+val loss: 1.0005924701690674
+total loss: 2.935940980911255
+Saving batch 82
+Simulating  games
+Training
+policy loss: 1.9283050298690796
+val loss: 0.9999728798866272
+total loss: 2.9282779693603516
+Saving batch 83
+Simulating  games
+Training
+policy loss: 1.9306817054748535
+val loss: 0.9989925026893616
+total loss: 2.9296741485595703
+Saving batch 84
+Simulating  games
+Training
+policy loss: 1.9313338994979858
+val loss: 0.9996924996376038
+total loss: 2.9310264587402344
+Saving batch 85
+Simulating  games
+Training
+policy loss: 1.9364272356033325
+val loss: 1.0000419616699219
+total loss: 2.936469078063965
+Saving batch 86
+Simulating  games
+Training
+policy loss: 1.9386892318725586
+val loss: 0.9996126890182495
+total loss: 2.9383020401000977
+Saving batch 87
+Simulating  games
+Training
+policy loss: 1.92872154712677
+val loss: 0.9990382194519043
+total loss: 2.9277596473693848
+Saving batch 88
+Simulating  games
+Training
+policy loss: 1.9261682033538818
+val loss: 1.0002615451812744
+total loss: 2.9264297485351562
+Saving batch 89
+Simulating  games
+Training
+policy loss: 1.9318026304244995
+val loss: 0.9690579175949097
+total loss: 2.900860548019409
+Saving batch 90
+Simulating  games
+Training
+policy loss: 1.9278310537338257
+val loss: 0.9842252135276794
+total loss: 2.9120562076568604
+Saving batch 91
+Simulating  games
+Training
+policy loss: 1.933167815208435
+val loss: 1.000005841255188
+total loss: 2.933173656463623
+Saving batch 92
+Simulating  games
+Training
+policy loss: 1.9281699657440186
+val loss: 1.0008970499038696
+total loss: 2.9290671348571777
+Saving batch 93
+Simulating  games
+Training
+policy loss: 1.9307466745376587
+val loss: 0.9983829855918884
+total loss: 2.9291296005249023
+Saving batch 94
+Simulating  games
+Training
+policy loss: 1.9166048765182495
+val loss: 0.9974703788757324
+total loss: 2.9140753746032715
+Saving batch 95
+Simulating  games
+Training
+policy loss: 1.9311938285827637
+val loss: 1.0013471841812134
+total loss: 2.9325408935546875
+Saving batch 96
+Simulating  games
+Training
+policy loss: 1.9274381399154663
+val loss: 1.0029999017715454
+total loss: 2.9304380416870117
+Saving batch 97
+Simulating  games
+Training
+policy loss: 1.9287965297698975
+val loss: 0.939940333366394
+total loss: 2.868736743927002
+Saving batch 98
+Simulating  games
+Training
+policy loss: 1.929917573928833
+val loss: 0.9944993853569031
+total loss: 2.924417018890381
+Saving batch 99
+Simulating  games
+Training
+policy loss: 1.926203727722168
+val loss: 0.9558518528938293
+total loss: 2.8820555210113525
+Saving batch 100
+Simulating  games
+Training
+policy loss: 1.9241355657577515
+val loss: 0.9660705327987671
+total loss: 2.8902060985565186
+Saving batch 101
+Simulating  games
+Training
+policy loss: 1.9374096393585205
+val loss: 0.9682621359825134
+total loss: 2.9056718349456787
+Saving batch 102
+Simulating  games
+Training
+policy loss: 1.9269449710845947
+val loss: 0.9990038871765137
+total loss: 2.9259488582611084
+Saving batch 103
+Simulating  games
+Training
+policy loss: 1.9318565130233765
+val loss: 1.0035443305969238
+total loss: 2.93540096282959
+Saving batch 104
+Simulating  games
+Training
+policy loss: 1.935805320739746
+val loss: 0.9946025013923645
+total loss: 2.930407762527466
+Saving batch 105
+Simulating  games
+Training
+policy loss: 1.9165185689926147
+val loss: 1.0056906938552856
+total loss: 2.9222092628479004
+Saving batch 106
+Simulating  games
+Training
+policy loss: 1.9297692775726318
+val loss: 1.010640263557434
+total loss: 2.9404096603393555
+Saving batch 107
+Simulating  games
+Training
+policy loss: 1.923414707183838
+val loss: 0.9656274318695068
+total loss: 2.8890421390533447
+Saving batch 108
+Simulating  games
+Training
+policy loss: 1.9260166883468628
+val loss: 0.9995104670524597
+total loss: 2.9255270957946777
+Saving batch 109
+Simulating  games
+Training
+policy loss: 1.9189144372940063
+val loss: 0.9998809695243835
+total loss: 2.918795347213745
+Saving batch 110
+Simulating  games
+Training
+policy loss: 1.916343092918396
+val loss: 0.9997323155403137
+total loss: 2.9160754680633545
+Saving batch 111
+Simulating  games
+Training
+policy loss: 1.9452792406082153
+val loss: 0.9984549283981323
+total loss: 2.9437341690063477
+Saving batch 112
+Simulating  games
+Training
+policy loss: 1.9222151041030884
+val loss: 0.9995782375335693
+total loss: 2.9217934608459473
+Saving batch 113
+Simulating  games
+Training
+policy loss: 1.9259793758392334
+val loss: 0.9992095828056335
+total loss: 2.9251890182495117
+Saving batch 114
+Simulating  games
+Training
+policy loss: 1.9350157976150513
+val loss: 0.9998501539230347
+total loss: 2.934865951538086
+Saving batch 115
+Simulating  games
+Training
+policy loss: 1.9377617835998535
+val loss: 0.9996340870857239
+total loss: 2.9373958110809326
+Saving batch 116
+Simulating  games
+Training
+policy loss: 1.9121090173721313
+val loss: 0.9990842342376709
+total loss: 2.911193370819092
+Saving batch 117
+Simulating  games
+Training
+policy loss: 1.9212812185287476
+val loss: 1.000367522239685
+total loss: 2.9216487407684326
+Saving batch 118
+Simulating  games
+Training
+policy loss: 1.9203221797943115
+val loss: 0.9995562434196472
+total loss: 2.9198784828186035
+Saving batch 119
+Simulating  games
+Training
+policy loss: 1.9243841171264648
+val loss: 0.9749471545219421
+total loss: 2.8993313312530518
+Saving batch 120
+Simulating  games
+Training
+policy loss: 1.9326692819595337
+val loss: 0.9553613662719727
+total loss: 2.888030529022217
+Saving batch 121
+Simulating  games
+Training
+policy loss: 1.9307297468185425
+val loss: 0.9981732964515686
+total loss: 2.928903102874756
+Saving batch 122
+Simulating  games
+Training
+policy loss: 1.9306367635726929
+val loss: 1.0012078285217285
+total loss: 2.931844711303711
+Saving batch 123
+Simulating  games
+Training
+policy loss: 1.9305860996246338
+val loss: 0.9397210478782654
+total loss: 2.870307207107544
+Saving batch 124
+Simulating  games
+Training
+policy loss: 1.9310847520828247
+val loss: 0.9789342880249023
+total loss: 2.9100189208984375
+Saving batch 125
+Simulating  games
+Training
+policy loss: 1.9297213554382324
+val loss: 1.0006521940231323
+total loss: 2.9303736686706543
+Saving batch 126
+Simulating  games
+Training
+policy loss: 1.9297634363174438
+val loss: 0.9996291995048523
+total loss: 2.9293925762176514
+Saving batch 127
+Simulating  games
+Training
+policy loss: 1.9248687028884888
+val loss: 0.99895840883255
+total loss: 2.9238271713256836
+Saving batch 128
+Simulating  games
+Training
+policy loss: 1.9222006797790527
+val loss: 0.9996563792228699
+total loss: 2.9218571186065674
+Saving batch 129
+Simulating  games
+Training
+policy loss: 1.9387664794921875
+val loss: 1.0018175840377808
+total loss: 2.940584182739258
+Saving batch 130
+Simulating  games
+Training
+policy loss: 1.9360289573669434
+val loss: 1.002032995223999
+total loss: 2.9380619525909424
+Saving batch 131
+Simulating  games
+Training
+policy loss: 1.9373363256454468
+val loss: 1.0013206005096436
+total loss: 2.938656806945801
+Saving batch 132
+Simulating  games
+Training
+policy loss: 1.920107126235962
+val loss: 1.0006623268127441
+total loss: 2.920769453048706
+Saving batch 133
+Simulating  games
+Training
+policy loss: 1.9338583946228027
+val loss: 1.0008918046951294
+total loss: 2.9347500801086426
+Saving batch 134
+Simulating  games
+Training
+policy loss: 1.9315894842147827
+val loss: 0.9998654127120972
+total loss: 2.93145489692688
+Saving batch 135
+Simulating  games
+Training
+policy loss: 1.9206783771514893
+val loss: 0.999943196773529
+total loss: 2.920621633529663
+Saving batch 136
+Simulating  games
+Training
+policy loss: 1.9189209938049316
+val loss: 0.9988431334495544
+total loss: 2.917764186859131
+Saving batch 137
+Simulating  games
+Training
+policy loss: 1.9316257238388062
+val loss: 1.0003268718719482
+total loss: 2.931952476501465
+Saving batch 138
+Simulating  games
+Training
+policy loss: 1.9316354990005493
+val loss: 1.000044345855713
+total loss: 2.9316797256469727
+Saving batch 139
+Simulating  games
+Training
+policy loss: 1.9260616302490234
+val loss: 0.9455099105834961
+total loss: 2.8715715408325195
+Saving batch 140
+Simulating  games
+Training
+policy loss: 1.9353899955749512
+val loss: 1.0005648136138916
+total loss: 2.9359548091888428
+Saving batch 141
+Simulating  games
+Training
+policy loss: 1.9111404418945312
+val loss: 1.0002559423446655
+total loss: 2.9113965034484863
+Saving batch 142
+Simulating  games
+Training
+policy loss: 1.937815546989441
+val loss: 1.0006804466247559
+total loss: 2.9384961128234863
+Saving batch 143
+Simulating  games
+Training
+policy loss: 1.9257104396820068
+val loss: 1.0002093315124512
+total loss: 2.925919771194458
+Saving batch 144
+Simulating  games
+Training
+policy loss: 1.9329726696014404
+val loss: 1.000166893005371
+total loss: 2.9331395626068115
+Saving batch 145
+Simulating  games
+Training
+policy loss: 1.9360815286636353
+val loss: 0.9996927976608276
+total loss: 2.935774326324463
+Saving batch 146
+Simulating  games
+Training
+policy loss: 1.9238836765289307
+val loss: 0.999479353427887
+total loss: 2.923362970352173
+Saving batch 147
+Simulating  games
+Training
+policy loss: 1.9178451299667358
+val loss: 0.9993853569030762
+total loss: 2.9172306060791016
+Saving batch 148
+Simulating  games
+Training
+policy loss: 1.9353597164154053
+val loss: 0.9988530278205872
+total loss: 2.9342126846313477
+Saving batch 149
+Simulating  games
+Training
+policy loss: 1.92578125
+val loss: 0.9994388222694397
+total loss: 2.925220012664795
+Saving batch 150
+Simulating  games
+Training
+policy loss: 1.9200246334075928
+val loss: 0.9995309710502625
+total loss: 2.9195556640625
+Saving batch 151
+Simulating  games
+Training
+policy loss: 1.913934588432312
+val loss: 0.961091160774231
+total loss: 2.875025749206543
+Saving batch 152
+Simulating  games
+Training
+policy loss: 1.9153329133987427
+val loss: 0.9989226460456848
+total loss: 2.9142556190490723
+Saving batch 153
+Simulating  games
+Training
+policy loss: 1.9154391288757324
+val loss: 1.0000332593917847
+total loss: 2.9154725074768066
+Saving batch 154
+Simulating  games
+Training
+policy loss: 1.9238839149475098
+val loss: 0.9994851350784302
+total loss: 2.9233689308166504
+Saving batch 155
+Simulating  games
+Training
+policy loss: 1.924346685409546
+val loss: 0.9998469948768616
+total loss: 2.9241936206817627
+Saving batch 156
+Simulating  games
+Training
+policy loss: 1.9315518140792847
+val loss: 0.9995248317718506
+total loss: 2.9310765266418457
+Saving batch 157
+Simulating  games
+Training
+policy loss: 1.930174469947815
+val loss: 1.0014429092407227
+total loss: 2.931617259979248
+Saving batch 158
+Simulating  games
+Training
+policy loss: 1.9281094074249268
+val loss: 0.9976895451545715
+total loss: 2.9257988929748535
+Saving batch 159
+Simulating  games
+Training
+policy loss: 1.9194891452789307
+val loss: 0.9783971905708313
+total loss: 2.897886276245117
+Saving batch 160
+Simulating  games
+Training
+policy loss: 1.9174456596374512
+val loss: 1.0022588968276978
+total loss: 2.9197044372558594
+Saving batch 161
+Simulating  games
+Training
+policy loss: 1.924940586090088
+val loss: 0.997201144695282
+total loss: 2.9221417903900146
+Saving batch 162
+Simulating  games
+Training
+policy loss: 1.904829978942871
+val loss: 0.9621626138687134
+total loss: 2.866992473602295
+Saving batch 163
+Simulating  games
+Training
+policy loss: 1.9171373844146729
+val loss: 1.0001672506332397
+total loss: 2.917304515838623
+Saving batch 164
+Simulating  games
+Training
+policy loss: 1.931762933731079
+val loss: 0.994507908821106
+total loss: 2.9262709617614746
+Saving batch 165
+Simulating  games
+Training
+policy loss: 1.9224578142166138
+val loss: 1.0032879114151
+total loss: 2.925745725631714
+Saving batch 166
+Simulating  games
+Training
+policy loss: 1.9229539632797241
+val loss: 0.9756540656089783
+total loss: 2.8986079692840576
+Saving batch 167
+Simulating  games
+Training
+policy loss: 1.909333348274231
+val loss: 0.9997416734695435
+total loss: 2.9090750217437744
+Saving batch 168
+Simulating  games
+Training
+policy loss: 1.9242287874221802
+val loss: 0.999607503414154
+total loss: 2.9238362312316895
+Saving batch 169
+Simulating  games
+Training
+policy loss: 1.9223681688308716
+val loss: 0.9988036751747131
+total loss: 2.9211719036102295
+Saving batch 170
+Simulating  games
+Training
+policy loss: 1.9274495840072632
+val loss: 0.9574803709983826
+total loss: 2.884929895401001
+Saving batch 171
+Simulating  games
+Training
+policy loss: 1.912503957748413
+val loss: 0.9999939799308777
+total loss: 2.9124979972839355
+Saving batch 172
+Simulating  games
+Training
+policy loss: 1.914872646331787
+val loss: 0.9789584279060364
+total loss: 2.8938310146331787
+Saving batch 173
+Simulating  games
+Training
+policy loss: 1.9234966039657593
+val loss: 0.9641552567481995
+total loss: 2.8876519203186035
+Saving batch 174
+Simulating  games
+Training
+policy loss: 1.9210180044174194
+val loss: 0.9994693398475647
+total loss: 2.920487403869629
+Saving batch 175
+Simulating  games
+Training
+policy loss: 1.9156221151351929
+val loss: 0.9604308009147644
+total loss: 2.8760528564453125
+Saving batch 176
+Simulating  games
+Training
+policy loss: 1.9157295227050781
+val loss: 0.9282049536705017
+total loss: 2.8439345359802246
+Saving batch 177
+Simulating  games
+Training
+policy loss: 1.9096322059631348
+val loss: 0.9758419394493103
+total loss: 2.88547420501709
+Saving batch 178
+Simulating  games
+Training
+policy loss: 1.9264373779296875
+val loss: 1.001242995262146
+total loss: 2.927680492401123
+Saving batch 179
+Simulating  games
+Training
+policy loss: 1.9136817455291748
+val loss: 1.000253677368164
+total loss: 2.913935422897339
+Saving batch 180
+Simulating  games
+Training
+policy loss: 1.9156203269958496
+val loss: 0.9996541142463684
+total loss: 2.9152743816375732
+Saving batch 181
+Simulating  games
+Training
+policy loss: 1.9268243312835693
+val loss: 0.9995272755622864
+total loss: 2.926351547241211
+Saving batch 182
+Simulating  games
+Training
+policy loss: 1.911515474319458
+val loss: 1.0005146265029907
+total loss: 2.9120302200317383
+Saving batch 183
+Simulating  games
+Training
+policy loss: 1.920076608657837
+val loss: 1.0016268491744995
+total loss: 2.921703338623047
+Saving batch 184
+Simulating  games
+Training
+policy loss: 1.9414929151535034
+val loss: 1.000234603881836
+total loss: 2.941727638244629
+Saving batch 185
+Simulating  games
+Training
+policy loss: 1.925376296043396
+val loss: 1.0018742084503174
+total loss: 2.927250385284424
+Saving batch 186
+Simulating  games
+Training
+policy loss: 1.9201161861419678
+val loss: 0.9991412162780762
+total loss: 2.919257402420044
+Saving batch 187
+Simulating  games
+Training
+policy loss: 1.9221038818359375
+val loss: 0.9973313808441162
+total loss: 2.9194352626800537
+Saving batch 188
+Simulating  games
+Training
+policy loss: 1.9160528182983398
+val loss: 1.0009468793869019
+total loss: 2.9169998168945312
+Saving batch 189
+Simulating  games
+Training
+policy loss: 1.914827585220337
+val loss: 1.0010923147201538
+total loss: 2.915919780731201
+Saving batch 190
+Simulating  games
+Training
+policy loss: 1.9206011295318604
+val loss: 0.9995022416114807
+total loss: 2.9201033115386963
+Saving batch 191
+Simulating  games
+Training
+policy loss: 1.9092882871627808
+val loss: 1.0014513731002808
+total loss: 2.9107396602630615
+Saving batch 192
+Simulating  games
+Training
+policy loss: 1.9304744005203247
+val loss: 0.9506139159202576
+total loss: 2.8810882568359375
+Saving batch 193
+Simulating  games
+Training
+policy loss: 1.9226698875427246
+val loss: 0.9999575614929199
+total loss: 2.9226274490356445
+Saving batch 194
+Simulating  games
+Training
+policy loss: 1.894667625427246
+val loss: 1.001401424407959
+total loss: 2.896069049835205
+Saving batch 195
+Simulating  games
+Training
+policy loss: 1.9308909177780151
+val loss: 0.9999229907989502
+total loss: 2.930813789367676
+Saving batch 196
+Simulating  games
+Training
+policy loss: 1.9246584177017212
+val loss: 0.9990445971488953
+total loss: 2.9237029552459717
+Saving batch 197
+Simulating  games
+Training
+policy loss: 1.9174718856811523
+val loss: 1.000676155090332
+total loss: 2.9181480407714844
+Saving batch 198
+Simulating  games
+Training
+policy loss: 1.9176867008209229
+val loss: 0.954973578453064
+total loss: 2.8726601600646973
+Saving batch 199
+Simulating  games
+Training
+policy loss: 1.9282389879226685
+val loss: 0.9635385870933533
+total loss: 2.891777515411377
+Saving batch 200
+Simulating  games
+Training
+policy loss: 1.9153120517730713
+val loss: 0.9239634275436401
+total loss: 2.839275360107422
+Saving batch 201
+Simulating  games
+Training
+policy loss: 1.9199074506759644
+val loss: 1.0001933574676514
+total loss: 2.920100688934326
+Saving batch 202
+Simulating  games
+Training
+policy loss: 1.9164626598358154
+val loss: 1.0014681816101074
+total loss: 2.917930841445923
+Saving batch 203
+Simulating  games
+Training
+policy loss: 1.9103018045425415
+val loss: 0.9997910857200623
+total loss: 2.910092830657959
+Saving batch 204
+Simulating  games
+Training
+policy loss: 1.920070767402649
+val loss: 0.9993976950645447
+total loss: 2.919468402862549
+Saving batch 205
+Simulating  games
+Training
+policy loss: 1.928002119064331
+val loss: 1.0004899501800537
+total loss: 2.9284920692443848
+Saving batch 206
+Simulating  games
+Training
+policy loss: 1.92507803440094
+val loss: 1.0019657611846924
+total loss: 2.927043914794922
+Saving batch 207
+Simulating  games
+Training
+policy loss: 1.9037004709243774
+val loss: 0.998336136341095
+total loss: 2.902036666870117
+Saving batch 208
+Simulating  games
+Training
+policy loss: 1.920503854751587
+val loss: 1.000355839729309
+total loss: 2.9208598136901855
+Saving batch 209
+Simulating  games
+Training
+policy loss: 1.9186043739318848
+val loss: 1.0000107288360596
+total loss: 2.9186151027679443
+Saving batch 210
+Simulating  games
+Training
+policy loss: 1.9244755506515503
+val loss: 0.9439616799354553
+total loss: 2.8684372901916504
+Saving batch 211
+Simulating  games
+Training
+policy loss: 1.9166486263275146
+val loss: 1.0015252828598022
+total loss: 2.9181737899780273
+Saving batch 212
+Simulating  games
+Training
+policy loss: 1.9244277477264404
+val loss: 0.9996527433395386
+total loss: 2.9240803718566895
+Saving batch 213
+Simulating  games
+Training
+policy loss: 1.9104632139205933
+val loss: 1.0001912117004395
+total loss: 2.9106545448303223
+Saving batch 214
+Simulating  games
+Training
+policy loss: 1.9194952249526978
+val loss: 0.9979865550994873
+total loss: 2.9174818992614746
+Saving batch 215
+Simulating  games
+Training
+policy loss: 1.9106512069702148
+val loss: 1.0006275177001953
+total loss: 2.91127872467041
+Saving batch 216
+Simulating  games
+Training
+policy loss: 1.914296269416809
+val loss: 1.0017324686050415
+total loss: 2.9160287380218506
+Saving batch 217
+Simulating  games
+Training
+policy loss: 1.9214527606964111
+val loss: 0.9545489549636841
+total loss: 2.8760018348693848
+Saving batch 218
+Simulating  games
+Training
+policy loss: 1.9064785242080688
+val loss: 0.9977152943611145
+total loss: 2.904193878173828
+Saving batch 219
+Simulating  games
+Training
+policy loss: 1.9161943197250366
+val loss: 1.0005215406417847
+total loss: 2.9167158603668213
+Saving batch 220
+Simulating  games
+Training
+policy loss: 1.920562982559204
+val loss: 0.9983547925949097
+total loss: 2.918917655944824
+Saving batch 221
+Simulating  games
+Training
+policy loss: 1.9130709171295166
+val loss: 0.9980509877204895
+total loss: 2.9111218452453613
+Saving batch 222
+Simulating  games
+Training
+policy loss: 1.9121242761611938
+val loss: 0.9696143269538879
+total loss: 2.8817386627197266
+Saving batch 223
+Simulating  games
+Training
+policy loss: 1.925615906715393
+val loss: 0.9998248219490051
+total loss: 2.925440788269043
+Saving batch 224
+Simulating  games
+Training
+policy loss: 1.9107155799865723
+val loss: 1.0005310773849487
+total loss: 2.9112467765808105
+Saving batch 225
+Simulating  games
+Training
+policy loss: 1.9179619550704956
+val loss: 0.9998480677604675
+total loss: 2.9178099632263184
+Saving batch 226
+Simulating  games
+Training
+policy loss: 1.9210550785064697
+val loss: 0.9982796907424927
+total loss: 2.919334888458252
+Saving batch 227
+Simulating  games
+Training
+policy loss: 1.9147274494171143
+val loss: 0.9995251297950745
+total loss: 2.914252519607544
+Saving batch 228
+Simulating  games
+Training
+policy loss: 1.9260892868041992
+val loss: 0.9974256753921509
+total loss: 2.9235148429870605
+Saving batch 229
+Simulating  games
+Training
+policy loss: 1.917952537536621
+val loss: 0.9196259379386902
+total loss: 2.837578535079956
+Saving batch 230
+Simulating  games
+Training
+policy loss: 1.91792631149292
+val loss: 1.0001388788223267
+total loss: 2.918065071105957
+Saving batch 231
+Simulating  games
+Training
+policy loss: 1.9291738271713257
+val loss: 0.9992454051971436
+total loss: 2.9284191131591797
+Saving batch 232
+Simulating  games
+Training
+policy loss: 1.9143493175506592
+val loss: 0.9739135503768921
+total loss: 2.8882627487182617
+Saving batch 233
+Simulating  games
+Training
+policy loss: 1.9152761697769165
+val loss: 1.0038927793502808
+total loss: 2.9191689491271973
+Saving batch 234
+Simulating  games
+Training
+policy loss: 1.9167553186416626
+val loss: 0.9953951835632324
+total loss: 2.9121503829956055
+Saving batch 235
+Simulating  games
+Training
+policy loss: 1.9011980295181274
+val loss: 1.0005923509597778
+total loss: 2.9017903804779053
+Saving batch 236
+Simulating  games
+Training
+policy loss: 1.9038037061691284
+val loss: 1.0003857612609863
+total loss: 2.9041895866394043
+Saving batch 237
+Simulating  games
+Training
+policy loss: 1.9151570796966553
+val loss: 0.997156023979187
+total loss: 2.9123129844665527
+Saving batch 238
+Simulating  games
+Training
+policy loss: 1.922157883644104
+val loss: 0.9403983354568481
+total loss: 2.862556219100952
+Saving batch 239
+Simulating  games
+Training
+policy loss: 1.929768681526184
+val loss: 1.000702977180481
+total loss: 2.930471658706665
+Saving batch 240
+Simulating  games
+Training
+policy loss: 1.9246611595153809
+val loss: 0.9969987273216248
+total loss: 2.9216599464416504
+Saving batch 241
+Simulating  games
+Training
+policy loss: 1.9200921058654785
+val loss: 1.0058722496032715
+total loss: 2.92596435546875
+Saving batch 242
+Simulating  games
+Training
+policy loss: 1.920969843864441
+val loss: 0.9627267122268677
+total loss: 2.8836965560913086
+Saving batch 243
+Simulating  games
+Training
+policy loss: 1.9276379346847534
+val loss: 1.005631923675537
+total loss: 2.93326997756958
+Saving batch 244
+Simulating  games
+Training
+policy loss: 1.9300475120544434
+val loss: 1.0005580186843872
+total loss: 2.930605411529541
+Saving batch 245
+Simulating  games
+Training
+policy loss: 1.933820128440857
+val loss: 0.965663731098175
+total loss: 2.8994839191436768
+Saving batch 246
+Simulating  games
+Training
+policy loss: 1.9258800745010376
+val loss: 0.959421694278717
+total loss: 2.8853018283843994
+Saving batch 247
+Simulating  games
+Training
+policy loss: 1.929381012916565
+val loss: 0.9978237748146057
+total loss: 2.9272048473358154
+Saving batch 248
+Simulating  games
+Training
+policy loss: 1.9163905382156372
+val loss: 0.997098982334137
+total loss: 2.913489580154419
+Saving batch 249
+Simulating  games
+Training
+policy loss: 1.9232244491577148
+val loss: 0.9981974363327026
+total loss: 2.921422004699707
+Saving batch 250
+Simulating  games
+Training
+policy loss: 1.9309470653533936
+val loss: 1.001678228378296
+total loss: 2.9326252937316895
+Saving batch 251
+Simulating  games
+Training
+policy loss: 1.9232698678970337
+val loss: 0.9996777772903442
+total loss: 2.922947645187378
+Saving batch 252
+Simulating  games
+Training
+policy loss: 1.9214773178100586
+val loss: 0.9842489957809448
+total loss: 2.905726432800293
+Saving batch 253
+Simulating  games
+Training
+policy loss: 1.925508975982666
+val loss: 0.9999178051948547
+total loss: 2.925426721572876
+Saving batch 254
+Simulating  games
+Training
+policy loss: 1.9136598110198975
+val loss: 1.0007662773132324
+total loss: 2.91442608833313
+Saving batch 255
+Simulating  games
+Training
+policy loss: 1.9206407070159912
+val loss: 0.922676682472229
+total loss: 2.8433175086975098
+Saving batch 256
+Simulating  games
+Training
+policy loss: 1.9205443859100342
+val loss: 0.9995372295379639
+total loss: 2.920081615447998
+Saving batch 257
+Simulating  games
+Training
+policy loss: 1.917438268661499
+val loss: 1.0005320310592651
+total loss: 2.9179701805114746
+Saving batch 258
+Simulating  games
+Training
+policy loss: 1.9032655954360962
+val loss: 0.9977572560310364
+total loss: 2.9010229110717773
+Saving batch 259
+Simulating  games
+Training
+policy loss: 1.9155281782150269
+val loss: 1.0025402307510376
+total loss: 2.9180684089660645
+Saving batch 260
+Simulating  games
+Training
+policy loss: 1.9054409265518188
+val loss: 0.9993581771850586
+total loss: 2.904798984527588
+Saving batch 261
+Simulating  games
+Training
+policy loss: 1.913039207458496
+val loss: 0.9780955910682678
+total loss: 2.891134738922119
+Saving batch 262
+Simulating  games
+Training
+policy loss: 1.9233736991882324
+val loss: 0.9997088313102722
+total loss: 2.9230825901031494
+Saving batch 263
+Simulating  games
+Training
+policy loss: 1.9247173070907593
+val loss: 1.0028860569000244
+total loss: 2.927603244781494
+Saving batch 264
+Simulating  games
+Training
+policy loss: 1.8929076194763184
+val loss: 0.9379212260246277
+total loss: 2.830828905105591
+Saving batch 265
+Simulating  games
+Training
+policy loss: 1.9215922355651855
+val loss: 0.9994775652885437
+total loss: 2.921069860458374
+Saving batch 266
+Simulating  games
+Training
+policy loss: 1.9183101654052734
+val loss: 0.9564452767372131
+total loss: 2.874755382537842
+Saving batch 267
+Simulating  games
+Training
+policy loss: 1.9251984357833862
+val loss: 1.0001261234283447
+total loss: 2.9253244400024414
+Saving batch 268
+Simulating  games
+Training
+policy loss: 1.9073565006256104
+val loss: 1.002002239227295
+total loss: 2.9093587398529053
+Saving batch 269
+Simulating  games
+Training
+policy loss: 1.9087684154510498
+val loss: 1.002110481262207
+total loss: 2.910878896713257
+Saving batch 270
+Simulating  games
+Training
+policy loss: 1.9197231531143188
+val loss: 0.999247670173645
+total loss: 2.918970823287964
+Saving batch 271
+Simulating  games
+Training
+policy loss: 1.9208135604858398
+val loss: 0.9498240351676941
+total loss: 2.8706376552581787
+Saving batch 272
+Simulating  games
+Training
+policy loss: 1.9060273170471191
+val loss: 0.9985862374305725
+total loss: 2.904613494873047
+Saving batch 273
+Simulating  games
+Training
+policy loss: 1.9134578704833984
+val loss: 0.999833881855011
+total loss: 2.9132916927337646
+Saving batch 274
+Simulating  games
+Training
+policy loss: 1.9029521942138672
+val loss: 1.0013700723648071
+total loss: 2.9043221473693848
+Saving batch 275
+Simulating  games
+Training
+policy loss: 1.9350038766860962
+val loss: 0.9996067881584167
+total loss: 2.934610605239868
+Saving batch 276
+Simulating  games
+Training
+policy loss: 1.9237215518951416
+val loss: 0.9859980344772339
+total loss: 2.909719467163086
+Saving batch 277
+Simulating  games
+Training
+policy loss: 1.9099843502044678
+val loss: 0.9958015084266663
+total loss: 2.9057857990264893
+Saving batch 278
+Simulating  games
+Training
+policy loss: 1.9215842485427856
+val loss: 0.9438270330429077
+total loss: 2.8654112815856934
+Saving batch 279
+Simulating  games
+Training
+policy loss: 1.9287978410720825
+val loss: 1.003119707107544
+total loss: 2.931917667388916
+Saving batch 280
+Simulating  games
+Training
+policy loss: 1.920367956161499
+val loss: 0.9998681545257568
+total loss: 2.920236110687256
+Saving batch 281
+Simulating  games
+Training
+policy loss: 1.9171748161315918
+val loss: 0.999657928943634
+total loss: 2.916832685470581
+Saving batch 282
+Simulating  games
+Training
+policy loss: 1.9284542798995972
+val loss: 0.997956395149231
+total loss: 2.926410675048828
+Saving batch 283
+Simulating  games
+Training
+policy loss: 1.918813943862915
+val loss: 1.0023009777069092
+total loss: 2.921114921569824
+Saving batch 284
+Simulating  games
+Training
+policy loss: 1.913461446762085
+val loss: 0.997810423374176
+total loss: 2.911271810531616
+Saving batch 285
+Simulating  games
+Training
+policy loss: 1.9308630228042603
+val loss: 0.9963108897209167
+total loss: 2.9271738529205322
+Saving batch 286
+Simulating  games
+Training
+policy loss: 1.9044396877288818
+val loss: 0.9370152950286865
+total loss: 2.8414549827575684
+Saving batch 287
+Simulating  games
+Training
+policy loss: 1.9069406986236572
+val loss: 0.9995109438896179
+total loss: 2.90645170211792
+Saving batch 288
+Simulating  games
+Training
+policy loss: 1.915326476097107
+val loss: 0.9973934888839722
+total loss: 2.912719964981079
+Saving batch 289
+Simulating  games
+Training
+policy loss: 1.923657774925232
+val loss: 1.0047491788864136
+total loss: 2.9284069538116455
+Saving batch 290
+Simulating  games
+Training
+policy loss: 1.9084054231643677
+val loss: 0.9969159364700317
+total loss: 2.9053213596343994
+Saving batch 291
+Simulating  games
+Training
+policy loss: 1.9055618047714233
+val loss: 1.0020002126693726
+total loss: 2.907562017440796
+Saving batch 292
+Simulating  games
+Training
+policy loss: 1.90891432762146
+val loss: 0.9548673629760742
+total loss: 2.863781690597534
+Saving batch 293
+Simulating  games
+Training
+policy loss: 1.9060463905334473
+val loss: 0.960337221622467
+total loss: 2.8663835525512695
+Saving batch 294
+Simulating  games
+Training
+policy loss: 1.9143269062042236
+val loss: 0.9987704753875732
+total loss: 2.913097381591797
+Saving batch 295
+Simulating  games
+Training
+policy loss: 1.8986681699752808
+val loss: 0.9973943829536438
+total loss: 2.8960626125335693
+Saving batch 296
+Simulating  games
+Training
+policy loss: 1.9185748100280762
+val loss: 0.9982711672782898
+total loss: 2.9168460369110107
+Saving batch 297
+Simulating  games
+Training
+policy loss: 1.9305709600448608
+val loss: 0.9983262419700623
+total loss: 2.9288971424102783
+Saving batch 298
+Simulating  games
+Training
+policy loss: 1.8977137804031372
+val loss: 0.9994596838951111
+total loss: 2.8971734046936035
+Saving batch 299
+Simulating  games
+Training
+policy loss: 1.8992321491241455
+val loss: 1.0025594234466553
+total loss: 2.901791572570801
+Saving batch 300
+Simulating  games
+Training
+policy loss: 1.91436767578125
+val loss: 0.9828494787216187
+total loss: 2.897217273712158
+Saving batch 301
+Simulating  games
+Training
+policy loss: 1.9260811805725098
+val loss: 0.9988076686859131
+total loss: 2.924888849258423
+Saving batch 302
+Simulating  games
+Training
+policy loss: 1.9243301153182983
+val loss: 1.0001217126846313
+total loss: 2.9244518280029297
+Saving batch 303
+Simulating  games
+Training
+policy loss: 1.9107074737548828
+val loss: 0.9987592697143555
+total loss: 2.9094667434692383
+Saving batch 304
+Simulating  games
+Training
+policy loss: 1.8959219455718994
+val loss: 0.9760679602622986
+total loss: 2.8719899654388428
+Saving batch 305
+Simulating  games
+Training
+policy loss: 1.9062975645065308
+val loss: 0.9983665347099304
+total loss: 2.9046640396118164
+Saving batch 306
+Simulating  games
+Training
+policy loss: 1.9219516515731812
+val loss: 1.0003879070281982
+total loss: 2.92233943939209
+Saving batch 307
+Simulating  games
+Training
+policy loss: 1.9133048057556152
+val loss: 0.9975938200950623
+total loss: 2.9108986854553223
+Saving batch 308
+Simulating  games
+Training
+policy loss: 1.9268898963928223
+val loss: 0.9970786571502686
+total loss: 2.923968553543091
+Saving batch 309
+Simulating  games
+Training
+policy loss: 1.9046639204025269
+val loss: 0.9996492266654968
+total loss: 2.904313087463379
+Saving batch 310
+Simulating  games
+Training
+policy loss: 1.9200080633163452
+val loss: 0.960356593132019
+total loss: 2.8803646564483643
+Saving batch 311
+Simulating  games
+Training
+policy loss: 1.8966994285583496
+val loss: 0.995164692401886
+total loss: 2.891864061355591
+Saving batch 312
+Simulating  games
+Training
+policy loss: 1.9108620882034302
+val loss: 0.9979219436645508
+total loss: 2.9087839126586914
+Saving batch 313
+Simulating  games
+Training
+policy loss: 1.907909631729126
+val loss: 1.0013407468795776
+total loss: 2.909250259399414
+Saving batch 314
+Simulating  games
+Training
+policy loss: 1.9089285135269165
+val loss: 0.9986878633499146
+total loss: 2.907616376876831
+Saving batch 315
+Simulating  games
+Training
+policy loss: 1.9082688093185425
+val loss: 1.0052512884140015
+total loss: 2.913520097732544
+Saving batch 316
+Simulating  games
+Training
+policy loss: 1.9203237295150757
+val loss: 0.945839524269104
+total loss: 2.8661632537841797
+Saving batch 317
+Simulating  games
+Training
+policy loss: 1.898038625717163
+val loss: 0.9998804926872253
+total loss: 2.897919178009033
+Saving batch 318
+Simulating  games
+Training
+policy loss: 1.897102952003479
+val loss: 0.9959055781364441
+total loss: 2.8930084705352783
+Saving batch 319
+Simulating  games
+Training
+policy loss: 1.8963041305541992
+val loss: 0.9179381132125854
+total loss: 2.814242362976074
+Saving batch 320
+Simulating  games
+Training
+policy loss: 1.907248854637146
+val loss: 1.0010030269622803
+total loss: 2.9082517623901367
+Saving batch 321
+Simulating  games
+Training
+policy loss: 1.9150680303573608
+val loss: 0.9998285174369812
+total loss: 2.9148964881896973
+Saving batch 322
+Simulating  games
+Training
+policy loss: 1.9101818799972534
+val loss: 0.9964202046394348
+total loss: 2.906602144241333
+Saving batch 323
+Simulating  games
+Training
+policy loss: 1.9021859169006348
+val loss: 0.9988240003585815
+total loss: 2.901010036468506
+Saving batch 324
+Simulating  games
+Training
+policy loss: 1.8990416526794434
+val loss: 0.9999247789382935
+total loss: 2.8989663124084473
+Saving batch 325
+Simulating  games
+Training
+policy loss: 1.9191532135009766
+val loss: 1.0031418800354004
+total loss: 2.922295093536377
+Saving batch 326
+Simulating  games
+Training
+policy loss: 1.9352389574050903
+val loss: 1.0061877965927124
+total loss: 2.9414267539978027
+Saving batch 327
+Simulating  games
+Training
+policy loss: 1.9056220054626465
+val loss: 1.0010567903518677
+total loss: 2.9066786766052246
+Saving batch 328
+Simulating  games
+Training
+policy loss: 1.9167897701263428
+val loss: 1.0009528398513794
+total loss: 2.9177427291870117
+Saving batch 329
+Simulating  games
+Training
+policy loss: 1.9134571552276611
+val loss: 0.9986611604690552
+total loss: 2.912118434906006
+Saving batch 330
+Simulating  games
+Training
+policy loss: 1.9169411659240723
+val loss: 0.9983639121055603
+total loss: 2.9153051376342773
+Saving batch 331
+Simulating  games
+Training
+policy loss: 1.9242353439331055
+val loss: 0.9184809923171997
+total loss: 2.8427162170410156
+Saving batch 332
+Simulating  games
+Training
+policy loss: 1.929465413093567
+val loss: 0.9968793988227844
+total loss: 2.926344871520996
+Saving batch 333
+Simulating  games
+Training
+policy loss: 1.894844651222229
+val loss: 1.005834698677063
+total loss: 2.900679349899292
+Saving batch 334
+Simulating  games
+Training
+policy loss: 1.9284595251083374
+val loss: 0.9966965317726135
+total loss: 2.9251561164855957
+Saving batch 335
+Simulating  games
+Training
+policy loss: 1.9055262804031372
+val loss: 1.0017534494400024
+total loss: 2.9072797298431396
+Saving batch 336
+Simulating  games
+Training
+policy loss: 1.906429409980774
+val loss: 1.0008587837219238
+total loss: 2.907288074493408
+Saving batch 337
+Simulating  games
+Training
+policy loss: 1.9083338975906372
+val loss: 0.9968659281730652
+total loss: 2.9051997661590576
+Saving batch 338
+Simulating  games
+Training
+policy loss: 1.9227094650268555
+val loss: 1.0038594007492065
+total loss: 2.9265689849853516
+Saving batch 339
+Simulating  games
+Training
+policy loss: 1.9039216041564941
+val loss: 1.0030466318130493
+total loss: 2.906968116760254
+Saving batch 340
+Simulating  games
+Training
+policy loss: 1.924402117729187
+val loss: 0.9975466728210449
+total loss: 2.9219489097595215
+Saving batch 341
+Simulating  games
+Training
+policy loss: 1.9063345193862915
+val loss: 1.0006500482559204
+total loss: 2.906984567642212
+Saving batch 342
+Simulating  games
+Training
+policy loss: 1.922286033630371
+val loss: 0.9999731779098511
+total loss: 2.9222593307495117
+Saving batch 343
+Simulating  games
+Training
+policy loss: 1.9103204011917114
+val loss: 0.999457836151123
+total loss: 2.909778118133545
+Saving batch 344
+Simulating  games
+Training
+policy loss: 1.9071669578552246
+val loss: 0.9432967901229858
+total loss: 2.8504638671875
+Saving batch 345
+Simulating  games
+Training
+policy loss: 1.9037667512893677
+val loss: 0.9485057592391968
+total loss: 2.8522725105285645
+Saving batch 346
+Simulating  games
+Training
+policy loss: 1.9033647775650024
+val loss: 1.0039830207824707
+total loss: 2.9073476791381836
+Saving batch 347
+Simulating  games
+Training
+policy loss: 1.9109963178634644
+val loss: 0.960294783115387
+total loss: 2.871291160583496
+Saving batch 348
+Simulating  games
+Training
+policy loss: 1.9198055267333984
+val loss: 1.0033209323883057
+total loss: 2.923126459121704
+Saving batch 349
+Simulating  games
+Training
+policy loss: 1.9128386974334717
+val loss: 0.9570754766464233
+total loss: 2.8699140548706055
+Saving batch 350
+Simulating  games
+Training
+policy loss: 1.9135035276412964
+val loss: 1.0010395050048828
+total loss: 2.9145431518554688
+Saving batch 351
+Simulating  games
+Training
+policy loss: 1.9160109758377075
+val loss: 1.0015517473220825
+total loss: 2.91756272315979
+Saving batch 352
+Simulating  games
+Training
+policy loss: 1.910776972770691
+val loss: 0.9544416666030884
+total loss: 2.8652186393737793
+Saving batch 353
+Simulating  games
+Training
+policy loss: 1.9005179405212402
+val loss: 0.9975084662437439
+total loss: 2.898026466369629
+Saving batch 354
+Simulating  games
+Training
+policy loss: 1.909023404121399
+val loss: 0.9974347352981567
+total loss: 2.9064581394195557
+Saving batch 355
+Simulating  games
+Training
+policy loss: 1.923292636871338
+val loss: 0.9981306195259094
+total loss: 2.9214231967926025
+Saving batch 356
+Simulating  games
+Training
+policy loss: 1.91384756565094
+val loss: 0.9990946650505066
+total loss: 2.9129421710968018
+Saving batch 357
+Simulating  games
+Training
+policy loss: 1.9154366254806519
+val loss: 1.0003775358200073
+total loss: 2.915814161300659
+Saving batch 358
+Simulating  games
+Training
+policy loss: 1.9111814498901367
+val loss: 1.001129150390625
+total loss: 2.9123106002807617
+Saving batch 359
+Simulating  games
+Training
+policy loss: 1.9127856492996216
+val loss: 0.9967010021209717
+total loss: 2.909486770629883
+Saving batch 360
+Simulating  games
+Training
+policy loss: 1.9032899141311646
+val loss: 0.9263420104980469
+total loss: 2.829631805419922
+Saving batch 361
+Simulating  games
+Training
+policy loss: 1.926780104637146
+val loss: 0.9994587302207947
+total loss: 2.926238775253296
+Saving batch 362
+Simulating  games
+Training
+policy loss: 1.9157660007476807
+val loss: 0.99777752161026
+total loss: 2.913543462753296
+Saving batch 363

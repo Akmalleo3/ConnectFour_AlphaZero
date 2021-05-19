@@ -1,0 +1,333 @@
+UseNetwork=no testing.pth traintime = 2hrs
+policy loss: 1.6151199340820312
+val loss: 0.9817835688591003
+total loss: 2.5969035625457764
+Validating against mcts player
+Player 1 trained net: 
+Player 2 MCTS: 
+0.84 winning rate of Player 1
+0.0 draw rate
+Saving batch 0
+Simulating  games
+Training
+policy loss: 1.6103774309158325
+val loss: 0.9278115630149841
+total loss: 2.538188934326172
+Saving batch 1
+Simulating  games
+Training
+policy loss: 1.616533637046814
+val loss: 0.875259518623352
+total loss: 2.491793155670166
+Saving batch 2
+Simulating  games
+Training
+policy loss: 1.6092596054077148
+val loss: 0.8800877332687378
+total loss: 2.489347457885742
+Saving batch 3
+Simulating  games
+Training
+policy loss: 1.614699363708496
+val loss: 0.8271790742874146
+total loss: 2.441878318786621
+Saving batch 4
+Simulating  games
+Training
+policy loss: 1.61030113697052
+val loss: 0.8743872046470642
+total loss: 2.4846882820129395
+Saving batch 5
+Simulating  games
+Training
+policy loss: 1.6105091571807861
+val loss: 0.8271867036819458
+total loss: 2.4376959800720215
+Saving batch 6
+Simulating  games
+Training
+policy loss: 1.609724521636963
+val loss: 0.8594674468040466
+total loss: 2.4691920280456543
+Saving batch 7
+Simulating  games
+Training
+policy loss: 1.6098088026046753
+val loss: 0.835569441318512
+total loss: 2.445378303527832
+Saving batch 8
+Simulating  games
+Training
+policy loss: 1.6130629777908325
+val loss: 0.6211048364639282
+total loss: 2.2341678142547607
+Saving batch 9
+Simulating  games
+Training
+policy loss: 1.6147103309631348
+val loss: 0.9556130170822144
+total loss: 2.5703234672546387
+Saving batch 10
+Simulating  games
+Training
+policy loss: 1.6112862825393677
+val loss: 0.9137901067733765
+total loss: 2.525076389312744
+Saving batch 11
+Simulating  games
+Training
+policy loss: 1.6093010902404785
+val loss: 0.9020549654960632
+total loss: 2.5113561153411865
+Saving batch 12
+Simulating  games
+Training
+policy loss: 1.6079150438308716
+val loss: 0.7323484420776367
+total loss: 2.3402633666992188
+Saving batch 13
+Simulating  games
+Training
+policy loss: 1.6125704050064087
+val loss: 0.904965877532959
+total loss: 2.517536163330078
+Saving batch 14
+Simulating  games
+Training
+policy loss: 1.6076747179031372
+val loss: 0.9614388346672058
+total loss: 2.5691134929656982
+Saving batch 15
+Simulating  games
+Training
+policy loss: 1.609340786933899
+val loss: 0.9336357116699219
+total loss: 2.5429763793945312
+Saving batch 16
+Simulating  games
+Training
+policy loss: 1.609464406967163
+val loss: 0.9462981224060059
+total loss: 2.555762529373169
+Saving batch 17
+Simulating  games
+Training
+policy loss: 1.609075903892517
+val loss: 0.7942178249359131
+total loss: 2.4032936096191406
+Saving batch 18
+Simulating  games
+Training
+policy loss: 1.6097227334976196
+val loss: 0.93585205078125
+total loss: 2.54557466506958
+Saving batch 19
+Simulating  games
+Training
+policy loss: 1.6073806285858154
+val loss: 0.8730701804161072
+total loss: 2.4804508686065674
+Validating against mcts player
+Player 1 trained net: 
+Player 2 MCTS: 
+0.86 winning rate of Player 1
+0.04 draw rate
+Saving batch 20
+Simulating  games
+Training
+policy loss: 1.6105109453201294
+val loss: 0.7996407747268677
+total loss: 2.410151720046997
+Saving batch 21
+Simulating  games
+Training
+policy loss: 1.6101888418197632
+val loss: 0.8570680618286133
+total loss: 2.467257022857666
+Saving batch 22
+Simulating  games
+Training
+policy loss: 1.6084283590316772
+val loss: 0.9525029063224792
+total loss: 2.5609312057495117
+Saving batch 23
+Simulating  games
+Training
+policy loss: 1.6091079711914062
+val loss: 0.9270297288894653
+total loss: 2.536137580871582
+Saving batch 24
+Simulating  games
+Training
+policy loss: 1.610239863395691
+val loss: 0.9058772325515747
+total loss: 2.5161170959472656
+Saving batch 25
+Simulating  games
+Training
+policy loss: 1.6089262962341309
+val loss: 0.8957462906837463
+total loss: 2.5046725273132324
+Saving batch 26
+Simulating  games
+Training
+policy loss: 1.609985113143921
+val loss: 0.8734297752380371
+total loss: 2.483414888381958
+Saving batch 27
+Simulating  games
+Training
+policy loss: 1.6072686910629272
+val loss: 0.7003751993179321
+total loss: 2.3076438903808594
+Saving batch 28
+Simulating  games
+Training
+policy loss: 1.6089653968811035
+val loss: 0.8732036352157593
+total loss: 2.4821691513061523
+Saving batch 29
+Simulating  games
+Training
+policy loss: 1.6087888479232788
+val loss: 0.9715049266815186
+total loss: 2.580293655395508
+Saving batch 30
+Simulating  games
+Training
+policy loss: 1.6078768968582153
+val loss: 0.8735812306404114
+total loss: 2.4814581871032715
+Saving batch 31
+Simulating  games
+Training
+policy loss: 1.607755422592163
+val loss: 0.8845368027687073
+total loss: 2.4922921657562256
+Saving batch 32
+Simulating  games
+Training
+policy loss: 1.6070629358291626
+val loss: 0.8844060897827148
+total loss: 2.491468906402588
+Saving batch 33
+Simulating  games
+Training
+policy loss: 1.6084012985229492
+val loss: 0.8784757852554321
+total loss: 2.486876964569092
+Saving batch 34
+Simulating  games
+Training
+policy loss: 1.607763648033142
+val loss: 0.8491204380989075
+total loss: 2.4568841457366943
+Saving batch 35
+Simulating  games
+Training
+policy loss: 1.6070144176483154
+val loss: 0.8743896484375
+total loss: 2.4814040660858154
+Saving batch 36
+Simulating  games
+Training
+policy loss: 1.6069499254226685
+val loss: 0.9267387986183167
+total loss: 2.53368878364563
+Saving batch 37
+Simulating  games
+Training
+policy loss: 1.6054556369781494
+val loss: 0.8530661463737488
+total loss: 2.458521842956543
+Saving batch 38
+Simulating  games
+Training
+policy loss: 1.6083358526229858
+val loss: 0.8278372883796692
+total loss: 2.4361732006073
+Saving batch 39
+Simulating  games
+Training
+policy loss: 1.6077979803085327
+val loss: 0.8606530427932739
+total loss: 2.4684510231018066
+Validating against mcts player
+Player 1 trained net: 
+Player 2 MCTS: 
+0.92 winning rate of Player 1
+0.02 draw rate
+Saving batch 40
+Simulating  games
+Training
+policy loss: 1.6070400476455688
+val loss: 0.9228975176811218
+total loss: 2.529937505722046
+Saving batch 41
+Simulating  games
+Training
+policy loss: 1.6067566871643066
+val loss: 0.8072303533554077
+total loss: 2.413987159729004
+Saving batch 42
+Simulating  games
+Training
+policy loss: 1.605168104171753
+val loss: 0.913904070854187
+total loss: 2.5190720558166504
+Saving batch 43
+Simulating  games
+Training
+policy loss: 1.60654616355896
+val loss: 0.8873989582061768
+total loss: 2.4939451217651367
+Saving batch 44
+Simulating  games
+Training
+policy loss: 1.6083253622055054
+val loss: 0.9371737241744995
+total loss: 2.545499086380005
+Saving batch 45
+Simulating  games
+Training
+policy loss: 1.6066027879714966
+val loss: 0.9760541915893555
+total loss: 2.5826568603515625
+Saving batch 46
+Simulating  games
+Training
+policy loss: 1.6050820350646973
+val loss: 0.9435470104217529
+total loss: 2.54862904548645
+Saving batch 47
+Simulating  games
+Training
+policy loss: 1.6066982746124268
+val loss: 0.8631067276000977
+total loss: 2.4698050022125244
+Saving batch 48
+Simulating  games
+Training
+policy loss: 1.6031017303466797
+val loss: 0.8326680064201355
+total loss: 2.43576979637146
+Saving batch 49
+Simulating  games
+Training
+policy loss: 1.6057332754135132
+val loss: 0.9431043267250061
+total loss: 2.548837661743164
+Saving batch 50
+Simulating  games
+Training
+policy loss: 1.6074517965316772
+val loss: 0.9664707779884338
+total loss: 2.573922634124756
+Saving batch 51
+Simulating  games
+Training
+policy loss: 1.6062504053115845
+val loss: 0.9681727290153503
+total loss: 2.57442307472229
+Saving batch 52
+Simulating  games
